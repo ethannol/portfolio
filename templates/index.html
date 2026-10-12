@@ -12,11 +12,11 @@
   <article class="card">
     <h3><a href="projects/{{ p.slug }}.html">{{ p.title }}</a></h3>
     <dl class="ahc">
-      <dt>Aim</dt><dd>{{ p.aim }}</dd>
-      <dt>Hypothesis</dt><dd>{{ p.hypothesis }}</dd>
-      <dt>Conclusion</dt><dd>{{ p.conclusion }}</dd>
+      <dt>Aim</dt><dd>{{ p.aim|safe }}</dd>
+      <dt>Hypothesis</dt><dd>{{ p.hypothesis|safe }}</dd>
+      <dt>Conclusion</dt><dd>{{ p.conclusion|safe }}</dd>
     </dl>
-    <div class="status {{ 'pending' if p.status != 'complete' else '' }}">{{ p.status }}{% if p.verification.frozen_at %} · pre-registered {{ p.verification.frozen_at[:10] }}{% endif %}{% if p.verification.tests_n %} · {{ p.verification.tests_n }} tests{% endif %}</div>
+    <div class="status {{ 'pending' if p.status != 'complete' else '' }}">{{ p.status }}{% if p.verification.frozen_at %} · pre-registered {{ p.verification.frozen_at[:10] }}{% endif %}{% if p.verification.tests_n %} · {{ p.verification.tests_n }} {{ p.verification.tests_label }}{% endif %}</div>
   </article>
 {% endfor %}
 </div>
@@ -27,11 +27,11 @@
   <article class="card">
     <h3><a href="projects/{{ p.slug }}.html">{{ p.title }}</a></h3>
     <dl class="ahc">
-      <dt>Aim</dt><dd>{{ p.aim }}</dd>
-      <dt>Scope</dt><dd>{{ p.scope }}</dd>
-      <dt>Status</dt><dd>{{ p.conclusion }}</dd>
+      <dt>Aim</dt><dd>{{ p.aim|safe }}</dd>
+      <dt>Scope</dt><dd>{{ p.scope|safe }}</dd>
+      <dt>Status</dt><dd>{{ p.conclusion|safe }}</dd>
     </dl>
-    <div class="status {{ 'pending' if p.status != 'complete' else '' }}">{{ p.status }}{% if p.verification.tests_n %} · {{ p.verification.tests_n }} tests{% endif %}</div>
+    <div class="status {{ 'pending' if p.status != 'complete' else '' }}">{{ p.status }}{% if p.verification.tests_n %} · {{ p.verification.tests_n }} {{ p.verification.tests_label }}{% endif %}</div>
   </article>
 {% endfor %}
 </div>

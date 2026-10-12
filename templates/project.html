@@ -3,14 +3,14 @@
 <header>
   <div class="eyebrow">{{ p.kind }} · {{ p.status }}{% if p.git_head %} · <span title="git HEAD of the local checkout at build time">{{ p.git_head }}</span>{% endif %}</div>
   <h1 style="margin-top:8px">{{ p.title }}</h1>
-  <p class="question">{{ p.question }}</p>
+  <p class="question">{{ p.question|safe }}</p>
 </header>
 
 <dl class="ahc page">
-  <dt>Aim</dt><dd>{{ p.aim }}</dd>
-  {% if p.hypothesis %}<dt>Hypothesis</dt><dd>{{ p.hypothesis }}</dd>{% endif %}
-  {% if p.scope %}<dt>Scope</dt><dd>{{ p.scope }}</dd>{% endif %}
-  <dt>{{ 'Conclusion' if p.kind == 'study' else 'Status' }}</dt><dd>{{ p.conclusion }}</dd>
+  <dt>Aim</dt><dd>{{ p.aim|safe }}</dd>
+  {% if p.hypothesis %}<dt>Hypothesis</dt><dd>{{ p.hypothesis|safe }}</dd>{% endif %}
+  {% if p.scope %}<dt>Scope</dt><dd>{{ p.scope|safe }}</dd>{% endif %}
+  <dt>{{ 'Conclusion' if p.kind == 'study' else 'Status' }}</dt><dd>{{ p.conclusion|safe }}</dd>
 </dl>
 
 <div class="two">
@@ -21,7 +21,7 @@
     <table class="cairn-table">
       <tr><th>Quantity</th><th>Value</th><th>Spread</th></tr>
       {% for h in p.headline %}
-      <tr><td>{{ h.label }}{% if h.note %}<div class="s">{{ h.note|safe }}</div>{% endif %}</td><td class="mono" title="{{ h.provenance }}">{{ h.shown }}{% if h.unit %} {{ h.unit }}{% endif %}</td><td class="mono">{% if h.spread %}{{ h.spread }} <span class="s">({{ h.spread_kind }})</span>{% endif %}</td></tr>
+      <tr><td>{{ h.label|safe }}{% if h.note %}<div class="s">{{ h.note|safe }}</div>{% endif %}</td><td class="mono" title="{{ h.provenance }}">{{ h.shown }}{% if h.unit %} {{ h.unit }}{% endif %}</td><td class="mono">{% if h.spread %}{{ h.spread }} <span class="s">({{ h.spread_kind }})</span>{% endif %}</td></tr>
       {% endfor %}
     </table>
     </div>
@@ -42,24 +42,28 @@
   <aside class="aside">
     {% if p.not_claimed %}
     <h3>Scope and limitations</h3>
-    <ul>{% for n in p.not_claimed %}<li>{{ n }}</li>{% endfor %}</ul>
+    <ul>{% for n in p.not_claimed %}<li>{{ n|safe }}</li>{% endfor %}</ul>
     {% endif %}
     {% if p.verification %}
     <h3>Verification</h3>
     <dl>
       {% if p.verification.frozen_at %}<dt>Pre-registered</dt><dd>{{ p.verification.frozen_at[:16].replace('T', ' ') }} UTC</dd>{% endif %}
-      {% if p.verification.tests_n %}<dt>Tests</dt><dd title="{{ p.verification.tests_prov }}">{{ p.verification.tests_n }} passing</dd>{% endif %}
+      {% if p.verification.tests_n %}<dt>Tests</dt><dd title="{{ p.verification.tests_prov }}">{{ p.verification.tests_n }} {{ p.verification.tests_label }}</dd>{% endif %}
+      {% if p.verification.checked_at %}<dt>Checked</dt><dd>{{ p.verification.checked_at }}</dd>{% endif %}
+      {% if p.verification.checked_commit %}<dt>Checked revision</dt><dd class="mono">{{ p.verification.checked_commit[:7] }}</dd>{% endif %}
       {% if p.verification.harness %}<dt>Harness</dt><dd>{{ p.verification.harness }}</dd>{% endif %}
-      {% if p.verification.verify %}<dt>Clean rerun</dt><dd>{{ p.verification.verify }}</dd>{% endif %}
+      {% if p.verification.verify %}<dt>Check evidence</dt><dd>{{ p.verification.verify }}</dd>{% endif %}
+      {% if p.verification.test_execution %}<dt>Recorded test run</dt><dd>{{ p.verification.test_execution.passed }} passed, {{ p.verification.test_execution.failed }} failed</dd>{% endif %}
+      {% if p.verification.tests_evidence %}<dt>Test evidence</dt><dd>{{ p.verification.tests_evidence.verify }}</dd>{% if p.verification.tests_evidence.test_execution %}<dt>Recorded test run</dt><dd>{{ p.verification.tests_evidence.test_execution.passed }} passed, {{ p.verification.tests_evidence.test_execution.failed }} failed</dd>{% endif %}{% endif %}
     </dl>
     {% endif %}
     {% if p.data %}
     <h3 style="margin-top:14px">Data</h3>
-    <ul>{% for d in p.data %}<li>{{ d }}</li>{% endfor %}</ul>
+    <ul>{% for d in p.data %}<li>{{ d|safe }}</li>{% endfor %}</ul>
     {% endif %}
     {% if p.stack %}
     <h3>Methods</h3>
-    <div class="chips">{% for s in p.stack %}<span class="chip">{{ s }}</span>{% endfor %}</div>
+    <div class="chips">{% for s in p.stack %}<span class="chip">{{ s|safe }}</span>{% endfor %}</div>
     {% endif %}
     {% if p.links %}
     <h3 style="margin-top:14px">Links</h3>
@@ -82,7 +86,7 @@
 <h2>Studies run under cairn</h2>
 <div class="cairn-table-wrap">
 <table class="cairn-table">
-<tr><th>Project</th><th>Pre-registration frozen</th><th>Tests</th><th>Clean rerun</th></tr>
+<tr><th>Project</th><th>Pre-registration frozen</th><th>Recorded test count</th><th>Check evidence</th></tr>
 {% for q in projects if q.verification.harness %}
 <tr><td><a href="{{ q.slug }}.html">{{ q.title }}</a></td><td class="mono">{{ q.verification.frozen_at[:10] if q.verification.frozen_at else '' }}</td><td class="mono">{{ q.verification.tests_n }}</td><td class="mono">{{ q.verification.verify }}</td></tr>
 {% endfor %}
