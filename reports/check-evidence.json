@@ -1,0 +1,41 @@
+{
+  "kind": "checks",
+  "source_commit": "eb97483f62e4fcad7c9a708ed20ca60e23ea68c3",
+  "source_files": {
+    ".github/workflows/tests.yml": "d1ce29719d00be3ba40751a206f12d5102de8d69095cd8776555e14d80abda33",
+    "pyproject.toml": "3dd3a8f0518986a50eeb30c7379dd17ee052102e9fb3fa84e2ea8018bfb15462",
+    "scripts/record_evidence.py": "ab05006b4d25b51847f3b93251500c1f9378f307902e812ac1f96befd6120a58",
+    "src/portfolio/__init__.py": "8b4285ab0dc9bdd5b774f50f0df254cc9c89eed12ab09d361d3e9023b8129aa2",
+    "src/portfolio/build.py": "dd9311837ac286a3670604a7b3a29f0632ce45376f94f143db50b5491c4e67a9",
+    "tests/test_build.py": "5ed776779d7e5abb3f17be32e6245ed44d47a7ac96baa7b0a928b32515761de8",
+    "tests/test_evidence_recorder.py": "4f892ff6bf3bb67aad4590a7bbcf9cb7001ed921ca338cba13da0f64ccb55421",
+    "uv.lock": "8e926141009fea12b43dfb9859696b3f046c1f3b9fd61647c7f9c5d1033c87f7"
+  },
+  "checked_at": "2026-10-12T20:36:19.887718+00:00",
+  "started_at": "2026-10-12T20:36:18.891863+00:00",
+  "ok": true,
+  "source_unchanged_during_check": true,
+  "command": [
+    "uv",
+    "run",
+    "--locked",
+    "pytest",
+    "-q"
+  ],
+  "exit_code": 0,
+  "stdout": "........................                                                 [100%]\n24 passed in 0.54s\n",
+  "stderr": "",
+  "tests": {
+    "passed": 24,
+    "failed": 0,
+    "skipped": 0,
+    "errors": 0,
+    "command": [
+      "uv",
+      "run",
+      "--locked",
+      "pytest",
+      "-q"
+    ]
+  }
+}
