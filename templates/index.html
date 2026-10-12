@@ -1,8 +1,8 @@
 {% set page_title = manifest.title %}{% set current = 'index' %}
 {% include "_head.html" %}
 <header>
-  <div class="eyebrow">{{ manifest.owner }} · {{ projects|length }} projects · {{ n_numbers }} traced numbers</div>
-  <h1 style="margin-top:8px">Where the plausible wrong answer lives</h1>
+  <div class="eyebrow">{{ manifest.owner }}</div>
+  <h1 style="margin-top:8px">{{ manifest.heading }}</h1>
   <p class="lede" style="margin-top:14px">{{ manifest.intro }}</p>
 </header>
 
@@ -10,39 +10,35 @@
 <div class="grid">
 {% for p in projects if p.kind == 'study' %}
   <article class="card">
-    <div class="chips"><span class="chip kind">{{ p.kind }}</span>{% for t in p.traps[:3] %}<span class="chip">{{ t.title }}</span>{% endfor %}</div>
     <h3><a href="projects/{{ p.slug }}.html">{{ p.title }}</a></h3>
-    <p class="q">{{ p.question }}</p>
-    <div class="tiles">
-    {% for h in p.headline[:4] %}
-      <div class="tile"><div class="v" title="{{ h.provenance }}">{{ h.shown }}{% if h.unit %}<span class="u"> {{ h.unit }}</span>{% endif %}</div><div class="l">{{ h.label }}</div>{% if h.spread %}<div class="s">{{ h.spread }}</div>{% endif %}</div>
-    {% endfor %}
-    </div>
+    <dl class="ahc">
+      <dt>Aim</dt><dd>{{ p.aim }}</dd>
+      <dt>Hypothesis</dt><dd>{{ p.hypothesis }}</dd>
+      <dt>Conclusion</dt><dd>{{ p.conclusion }}</dd>
+    </dl>
     <div class="status {{ 'pending' if p.status != 'complete' else '' }}">{{ p.status }}{% if p.verification.frozen_at %} · pre-registered {{ p.verification.frozen_at[:10] }}{% endif %}{% if p.verification.tests_n %} · {{ p.verification.tests_n }} tests{% endif %}</div>
   </article>
 {% endfor %}
 </div>
 
-<h2>Harness and references</h2>
+<h2>Harness and reference material</h2>
 <div class="grid">
 {% for p in projects if p.kind != 'study' %}
   <article class="card">
-    <div class="chips"><span class="chip kind">{{ p.kind }}</span>{% for t in p.traps[:3] %}<span class="chip">{{ t.title }}</span>{% endfor %}</div>
     <h3><a href="projects/{{ p.slug }}.html">{{ p.title }}</a></h3>
-    <p class="q">{{ p.question }}</p>
-    <div class="tiles">
-    {% for h in p.headline[:4] %}
-      <div class="tile"><div class="v" title="{{ h.provenance }}">{{ h.shown }}{% if h.unit %}<span class="u"> {{ h.unit }}</span>{% endif %}</div><div class="l">{{ h.label }}</div></div>
-    {% endfor %}
-    </div>
+    <dl class="ahc">
+      <dt>Aim</dt><dd>{{ p.aim }}</dd>
+      <dt>Scope</dt><dd>{{ p.scope }}</dd>
+      <dt>Status</dt><dd>{{ p.conclusion }}</dd>
+    </dl>
     <div class="status {{ 'pending' if p.status != 'complete' else '' }}">{{ p.status }}{% if p.verification.tests_n %} · {{ p.verification.tests_n }} tests{% endif %}</div>
   </article>
 {% endfor %}
 </div>
 
-<h2>Failure modes across projects</h2>
-<p>The same traps recur across datasets. <a href="failure-modes.html">The failure-modes page</a> lists each one with how it appeared in every project that met it.</p>
+<h2>Recurring methodological problems</h2>
+<p>The same problems recur across datasets. <a href="failure-modes.html">This page</a> lists each with how it arose in every project that met it.</p>
 <div class="chips">
-{% for t in trap_rows %}<a class="chip" href="failure-modes.html#{{ t.id }}">{{ t.title }} · {{ t.appearances|length }}</a>{% endfor %}
+{% for t in trap_rows %}<a class="chip" href="failure-modes.html#{{ t.id }}">{{ t.title }} ({{ t.appearances|length }})</a>{% endfor %}
 </div>
 {% include "_foot.html" %}

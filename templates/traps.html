@@ -1,9 +1,9 @@
-{% set page_title = 'Failure modes' %}{% set current = 'traps' %}
+{% set page_title = 'Recurring methodological problems' %}{% set current = 'traps' %}
 {% include "_head.html" %}
 <header>
-  <div class="eyebrow">Cross-cutting</div>
-  <h1 style="margin-top:8px">Failure modes</h1>
-  <p class="lede" style="margin-top:14px">An analysis rarely crashes. It produces a clean-running, plausible, wrong number. These are the ways that happened, or was prevented, across the projects.</p>
+  <div class="eyebrow">{{ manifest.owner }}</div>
+  <h1 style="margin-top:8px">Recurring methodological problems</h1>
+  <p class="lede" style="margin-top:14px">Problems that produce a well-formed but wrong result, and how each arose in the projects that met it.</p>
 </header>
 {% for t in trap_rows %}
 <section class="trap" id="{{ t.id }}">

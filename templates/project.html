@@ -4,29 +4,36 @@
   <div class="eyebrow">{{ p.kind }} · {{ p.status }}{% if p.git_head %} · <span title="git HEAD of the local checkout at build time">{{ p.git_head }}</span>{% endif %}</div>
   <h1 style="margin-top:8px">{{ p.title }}</h1>
   <p class="question">{{ p.question }}</p>
-  {% if p.one_liner %}<p class="lede">{{ p.one_liner }}</p>{% endif %}
 </header>
 
-{% if p.headline %}
-<div class="headline">
-{% for h in p.headline %}
-  <div class="tile">
-    <div class="v" title="{{ h.provenance }}">{{ h.shown }}{% if h.unit %}<span class="u">{{ h.unit }}</span>{% endif %}</div>
-    <div class="l">{{ h.label }}</div>
-    {% if h.spread %}<div class="s">{{ h.spread_kind }}: {{ h.spread }}</div>{% endif %}
-    {% if h.note %}<div class="s">{{ h.note }}</div>{% endif %}
-  </div>
-{% endfor %}
-</div>
-{% endif %}
+<dl class="ahc page">
+  <dt>Aim</dt><dd>{{ p.aim }}</dd>
+  {% if p.hypothesis %}<dt>Hypothesis</dt><dd>{{ p.hypothesis }}</dd>{% endif %}
+  {% if p.scope %}<dt>Scope</dt><dd>{{ p.scope }}</dd>{% endif %}
+  <dt>{{ 'Conclusion' if p.kind == 'study' else 'Status' }}</dt><dd>{{ p.conclusion }}</dd>
+</dl>
 
 <div class="two">
   <div>
-    <h2>What was found</h2>
+    {% if p.headline %}
+    <h2>Quantities</h2>
+    <div class="cairn-table-wrap">
+    <table class="cairn-table">
+      <tr><th>Quantity</th><th>Value</th><th>Spread</th></tr>
+      {% for h in p.headline %}
+      <tr><td>{{ h.label }}{% if h.note %}<div class="s">{{ h.note|safe }}</div>{% endif %}</td><td class="mono" title="{{ h.provenance }}">{{ h.shown }}{% if h.unit %} {{ h.unit }}{% endif %}</td><td class="mono">{% if h.spread %}{{ h.spread }} <span class="s">({{ h.spread_kind }})</span>{% endif %}</td></tr>
+      {% endfor %}
+    </table>
+    </div>
+    {% endif %}
+
+    {% if p.finding %}
+    <h2>Results</h2>
     {% for para in p.finding %}<p>{{ para|safe }}</p>{% endfor %}
+    {% endif %}
 
     {% if p.traps %}
-    <h2>Traps met here</h2>
+    <h2>Methodological problems encountered</h2>
     {% for t in p.traps %}
     <p><a href="../failure-modes.html#{{ t.id }}"><strong>{{ t.title }}.</strong></a> {{ t.how|safe }}</p>
     {% endfor %}
@@ -34,7 +41,7 @@
   </div>
   <aside class="aside">
     {% if p.not_claimed %}
-    <h3>Not claimed</h3>
+    <h3>Scope and limitations</h3>
     <ul>{% for n in p.not_claimed %}<li>{{ n }}</li>{% endfor %}</ul>
     {% endif %}
     {% if p.verification %}
@@ -72,7 +79,7 @@
 {% endif %}
 
 {% if p.slug == 'cairn' %}
-<h2>Projects run under cairn</h2>
+<h2>Studies run under cairn</h2>
 <div class="cairn-table-wrap">
 <table class="cairn-table">
 <tr><th>Project</th><th>Pre-registration frozen</th><th>Tests</th><th>Clean rerun</th></tr>
