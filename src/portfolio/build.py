@@ -11,13 +11,17 @@ from __future__ import annotations
 
 import argparse
 import glob
+import hashlib
 import html
 import json
 import re
 import shutil
+import subprocess
+import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote, unquote, urlsplit
 
 import markdown
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -43,12 +47,15 @@ PLACEHOLDER = re.compile(r"\{\{([A-Za-z0-9_.\-/]+)(?::([^}]+))?\}\}")
 class Ledger:
     """Resolve numeric references against a project's recorded results."""
 
-    def __init__(self, project_dir: Path, spec: dict[str, Any]):
+    def __init__(
+        self, project_dir: Path, spec: dict[str, Any], sources: dict[str, Any] | None = None
+    ):
         self.dir = project_dir
         self.spec = spec
         self.kind = spec.get("type", "none")
         self.data: Any = None
         self.provenance: dict[str, str] = {}
+        self.sources = sources or {}
         if self.kind in {"cairn", "json"}:
             self.data = json.loads((project_dir / spec["path"]).read_text())
 
@@ -56,6 +63,8 @@ class Ledger:
         """Return (value, provenance string)."""
         if isinstance(ref, dict):
             return self._resolve_custom(ref)
+        if ref in self.sources:
+            return self._resolve_custom(self.sources[ref])
         if self.kind == "cairn":
             entry = self.data[ref]
             prov = f"{self.spec['path']} key {ref} (from {entry.get('source', '?')})"
@@ -153,13 +162,207 @@ def substitute(text: str, ledger: Ledger, used: list[dict[str, Any]]) -> str:
             f"{html.escape(shown)}</span>"
         )
 
-    return PLACEHOLDER.sub(repl, text)
+    parts = []
+    end = 0
+    for match in PLACEHOLDER.finditer(text):
+        parts.append(html.escape(text[end : match.start()]))
+        parts.append(repl(match))
+        end = match.end()
+    parts.append(html.escape(text[end:]))
+    rendered = "".join(parts)
+    if "{{" in rendered or "}}" in rendered:
+        raise ValueError(f"unresolved or malformed result placeholder: {text!r}")
+    return rendered
 
 
-def md_to_html(text: str) -> str:
-    return markdown.markdown(
-        text, extensions=["tables", "fenced_code", "toc", "sane_lists"], output_format="html5"
+def git_revision(project_dir: Path) -> tuple[str, bool]:
+    """Use Git itself so packed refs and linked worktrees work too."""
+    try:
+        head = subprocess.run(
+            ["git", "-C", str(project_dir), "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        dirty = subprocess.run(
+            ["git", "-C", str(project_dir), "status", "--porcelain", "--untracked-files=no"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        return head, bool(dirty)
+    except (OSError, subprocess.CalledProcessError):
+        return "", False
+
+
+def verification_evidence(
+    project_dir: Path, spec: dict[str, Any], ledger: Ledger, head: str, dirty: bool
+) -> dict[str, Any]:
+    """A definition count or a literal card label is not an execution result."""
+    result = {"harness": spec.get("harness", ""), "verify": "not evidenced"}
+    if "frozen" in spec:
+        frozen = json.loads((project_dir / spec["frozen"]).read_text())
+        result["frozen_at"] = frozen.get("frozen_at", "")
+    if "tests" in spec:
+        n, provenance = ledger.resolve(spec["tests"])
+        result.update(tests_n=n, tests_prov=provenance, tests_label="recorded test count")
+        ref = spec["tests"]
+        if isinstance(ref, dict) and ref.get("source") == "regex_count":
+            result["tests_label"] = "test definitions"
+    if "verify" in spec:
+        result["reported_status"] = str(spec["verify"])
+    artifact = spec.get("artifact")
+    if not artifact:
+        return result
+    path = (project_dir / artifact).resolve()
+    if not path.is_relative_to(project_dir.resolve()):
+        raise ValueError("verification artifact must be inside its project")
+    if not path.is_file():
+        result["verify"] = "artifact missing"
+        return result
+    evidence = json.loads(path.read_text())
+    result.update(
+        artifact=artifact,
+        checked_commit=evidence.get("source_commit", ""),
+        checked_at=evidence.get("checked_at", evidence.get("finished_at", "")),
     )
+    source_files = evidence.get("source_files", {})
+    hashes_match = bool(source_files) and all(
+        (project_dir / name).resolve().is_relative_to(project_dir.resolve())
+        and (project_dir / name).is_file()
+        and hashlib.sha256((project_dir / name).read_bytes()).hexdigest() == digest
+        for name, digest in source_files.items()
+    )
+    analyses = evidence.get("analyses", {})
+    successful = evidence.get("ok") is True
+    outputs_match = True
+    if analyses:
+        successful = all(item.get("exit_code") == 0 for item in analyses.values())
+        for item in analyses.values():
+            output = (path.parent / item.get("output", "")).resolve()
+            outputs_match &= (
+                output.is_relative_to(project_dir.resolve())
+                and output.is_file()
+                and hashlib.sha256(output.read_bytes()).hexdigest() == item.get("output_sha256")
+            )
+        result["execution_label"] = "worked-example execution"
+        result["analyses_n"] = len(analyses)
+    if not result["checked_commit"] or not result["checked_at"]:
+        result["verify"] = "artifact lacks revision or time"
+    elif source_files and not hashes_match:
+        result["verify"] = "source hash mismatch; evidence invalid"
+    elif not outputs_match:
+        result["verify"] = "output hash mismatch; evidence invalid"
+    elif hashes_match:
+        result["verify"] = (
+            "pass; recorded source hashes match"
+            if successful
+            else "failed; recorded source hashes match"
+        )
+    elif dirty or result["checked_commit"] != head:
+        result["verify"] = "historical evidence; source has changed"
+    elif successful:
+        result["verify"] = "pass at this revision"
+    else:
+        result["verify"] = "failed at this revision"
+    if isinstance(evidence.get("tests"), dict):
+        result["test_execution"] = evidence["tests"]
+    if spec.get("test_artifact"):
+        result["tests_evidence"] = verification_evidence(
+            project_dir, {"artifact": spec["test_artifact"]}, ledger, head, dirty
+        )
+    return result
+
+
+def literal_result_numbers(card: dict[str, Any], enforce: bool = True) -> list[dict[str, str]]:
+    """Audit result-bearing prose; declared constants are dates, thresholds, etc."""
+    constants = card.get("numeric_constants", {})
+    fields = [
+        (field, card.get(field, ""))
+        for field in ("conclusion", "aim", "hypothesis", "scope", "question", "one_liner")
+    ]
+    fields.extend(
+        (field, text) for field in ("not_claimed", "data", "stack") for text in card.get(field, [])
+    )
+    fields.extend(("finding", text) for text in card.get("finding", []))
+    fields.extend(("headline.label", item["label"]) for item in card.get("headline", []))
+    fields.extend(("headline.note", item.get("note", "")) for item in card.get("headline", []))
+    fields.extend(("traps.how", item["how"]) for item in card.get("traps", []))
+    fields.extend(("figures.caption", item["caption"]) for item in card.get("figures", []))
+    literals = []
+    for field, text in fields:
+        plain = PLACEHOLDER.sub("", text)
+        for match in re.finditer(r"(?<![\w])[-+]?\d+(?:[.,]\d+)*(?![\w])", plain):
+            number = match.group()
+            if not constants.get(number):
+                literals.append({"field": field, "number": number})
+    if literals and enforce and card.get("strict_numbers"):
+        raise ValueError(f"{card['slug']}: undeclared literal result numbers: {literals}")
+    return literals
+
+
+def md_to_html(
+    text: str,
+    project_dir: Path | None = None,
+    document_path: str = "",
+    repository: str = "",
+    revision: str = "",
+) -> str:
+    converter = markdown.Markdown(
+        extensions=["tables", "fenced_code", "toc", "sane_lists"], output_format="html5"
+    )
+    if project_dir and repository and revision:
+
+        class RepositoryLinks(markdown.treeprocessors.Treeprocessor):
+            def run(self, root):
+                for element in root.iter():
+                    attribute = (
+                        "href" if element.tag == "a" else "src" if element.tag == "img" else ""
+                    )
+                    if not attribute or not element.get(attribute):
+                        continue
+                    href = element.get(attribute)
+                    parts = urlsplit(href)
+                    if parts.scheme or parts.netloc or not parts.path:
+                        continue
+                    target = (
+                        project_dir / Path(document_path).parent / unquote(parts.path)
+                    ).resolve()
+                    target_root, target_repository, target_revision = (
+                        project_dir.resolve(),
+                        repository,
+                        revision,
+                    )
+                    if not target.is_relative_to(target_root):
+                        parent = project_dir.parent.resolve()
+                        if not target.is_relative_to(parent):
+                            continue
+                        neighbor = parent / target.relative_to(parent).parts[0]
+                        neighbor_card = neighbor / "portfolio.json"
+                        if not neighbor_card.is_file():
+                            continue
+                        target_repository = (
+                            json.loads(neighbor_card.read_text())
+                            .get("links", {})
+                            .get("Repository", "")
+                        )
+                        target_revision, _ = git_revision(neighbor)
+                        target_root = neighbor.resolve()
+                        if not target_repository or not target_revision:
+                            continue
+                    relative = target.relative_to(target_root).as_posix()
+                    relative = "" if relative == "." else "/" + quote(relative)
+                    suffix = f"#{parts.fragment}" if parts.fragment else ""
+                    view = "tree" if target.is_dir() else "blob"
+                    base_url = f"{target_repository.rstrip('/')}/{view}/{target_revision}{relative}"
+                    url = base_url + suffix
+                    if element.tag == "img":
+                        url = base_url + "?raw=true" + suffix
+                    element.set(attribute, url)
+                return root
+
+        converter.treeprocessors.register(RepositoryLinks(converter), "repository_links", 5)
+    return converter.convert(text)
 
 
 def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, Any] | None:
@@ -170,14 +373,18 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
             return None
         raise FileNotFoundError(card_path)
     card = json.loads(card_path.read_text())
-    ledger = Ledger(pdir, card.get("ledger", {"type": "none"}))
+    if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", card["slug"]):
+        raise ValueError(f"invalid project slug: {card['slug']!r}")
+    git_head, git_dirty = git_revision(pdir)
+    ledger = Ledger(pdir, card.get("ledger", {"type": "none"}), card.get("sources"))
+    literal_numbers = literal_result_numbers(card)
     used: list[dict[str, Any]] = []
 
     headline = []
     for item in card.get("headline", []):
         value, prov = ledger.resolve(item["value"])
         row = {
-            "label": item["label"],
+            "label": substitute(item["label"], ledger, used),
             "shown": fmt_value(value, item.get("fmt")),
             "unit": item.get("unit", ""),
             "provenance": prov,
@@ -223,55 +430,65 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
         p = pdir / d["path"]
         if not p.exists():
             raise FileNotFoundError(p)
-        docs.append({"title": d["title"], "path": d["path"], "html": md_to_html(p.read_text())})
+        document = p.read_text()
+        if p.suffix in {".json", ".txt", ".csv"}:
+            document = "```\n" + document + "\n```"
+        docs.append(
+            {
+                "title": d["title"],
+                "path": d["path"],
+                "html": md_to_html(
+                    document,
+                    pdir,
+                    d["path"],
+                    card.get("links", {}).get("Repository", ""),
+                    git_head,
+                ),
+            }
+        )
 
-    verification = dict(card.get("verification", {}))
-    if "frozen" in verification:
-        frozen = json.loads((pdir / verification["frozen"]).read_text())
-        verification["frozen_at"] = frozen.get("frozen_at", "")
-    if "tests" in verification:
-        n, prov = ledger.resolve(verification["tests"])
-        verification["tests_n"] = n
-        verification["tests_prov"] = prov
-    git_head = ""
-    head_file = pdir / ".git" / "HEAD"
-    if head_file.exists():
-        ref = head_file.read_text().strip()
-        if ref.startswith("ref: "):
-            rf = pdir / ".git" / ref[5:]
-            git_head = rf.read_text().strip()[:7] if rf.exists() else ""
-        else:
-            git_head = ref[:7]
+    verification = verification_evidence(
+        pdir, card.get("verification", {}), ledger, git_head, git_dirty
+    )
+
+    def prose(field: str) -> str:
+        return substitute(card.get(field, ""), ledger, used)
 
     return {
         "slug": card["slug"],
         "title": card["title"],
         "kind": card.get("kind", "study"),
         "status": card.get("status", "complete"),
-        "question": card["question"],
-        "one_liner": card.get("one_liner", ""),
-        "aim": card.get("aim", ""),
-        "hypothesis": card.get("hypothesis", ""),
-        "scope": card.get("scope", ""),
-        "conclusion": card.get("conclusion", ""),
+        "question": prose("question"),
+        "one_liner": prose("one_liner"),
+        "aim": prose("aim"),
+        "hypothesis": prose("hypothesis"),
+        "scope": prose("scope"),
+        "conclusion": prose("conclusion"),
         "headline": headline,
         "finding": finding,
         "traps": traps,
         "figures": figures,
-        "not_claimed": card.get("not_claimed", []),
+        "not_claimed": [substitute(text, ledger, used) for text in card.get("not_claimed", [])],
         "documents": docs,
         "verification": verification,
         "links": card.get("links", {}),
-        "data": card.get("data", []),
-        "stack": card.get("stack", []),
-        "git_head": git_head,
+        "data": [substitute(text, ledger, used) for text in card.get("data", [])],
+        "stack": [substitute(text, ledger, used) for text in card.get("stack", [])],
+        "git_head": git_head[:7],
+        "source_commit": git_head,
+        "source_dirty": git_dirty,
+        "literal_numbers": literal_numbers,
         "numbers_used": used,
         "dir": pdir,
     }
 
 
-def build(
-    out: Path, artifact_index: bool = True, css_path: Path | None = None
+def _render_site(
+    out: Path,
+    artifact_index: bool = True,
+    css_path: Path | None = None,
+    strict_numbers: bool = False,
 ) -> list[dict[str, Any]]:
     manifest = json.loads((ROOT / "manifest.json").read_text())
     env = Environment(
@@ -281,9 +498,14 @@ def build(
         lstrip_blocks=True,
     )
     projects = [p for p in (load_project(e, manifest) for e in manifest["projects"]) if p]
+    if strict_numbers and any(project["literal_numbers"] for project in projects):
+        audit = {
+            project["slug"]: project["literal_numbers"]
+            for project in projects
+            if project["literal_numbers"]
+        }
+        raise ValueError(f"undeclared literal result numbers: {audit}")
 
-    if out.exists():
-        shutil.rmtree(out)
     (out / "projects").mkdir(parents=True)
     for p in projects:
         adir = out / "assets" / p["slug"]
@@ -339,6 +561,10 @@ def build(
                         {k: v for k, v in h.items() if k != "note"} for h in p["headline"]
                     ],
                     "inline": p["numbers_used"],
+                    "source_commit": p["source_commit"],
+                    "source_dirty": p["source_dirty"],
+                    "verification": p["verification"],
+                    "literal_numbers": p["literal_numbers"],
                 }
                 for p in projects
             },
@@ -349,18 +575,106 @@ def build(
     return projects
 
 
+OUTPUT_MARKER = ".portfolio-output"
+OUTPUT_VERSION = "portfolio-output-v1\n"
+
+
+def validate_output(out: Path) -> Path:
+    """Only replace a directory previously generated by this builder."""
+    if any(component.is_symlink() for component in (out.absolute(), *out.absolute().parents)):
+        raise ValueError("output path may not contain a symlink")
+    resolved = out.resolve()
+    manifest = json.loads((ROOT / "manifest.json").read_text())
+    protected = [ROOT.resolve(), Path.home().resolve()]
+    protected.extend((ROOT / item["path"]).resolve() for item in manifest["projects"])
+    for source in protected:
+        if resolved == source or source.is_relative_to(resolved):
+            raise ValueError(f"output would replace a source directory: {resolved}")
+    default_site = ROOT.resolve() / "site"
+    if not resolved.is_relative_to(default_site):
+        for source in protected:
+            if source != Path.home().resolve() and resolved.is_relative_to(source):
+                raise ValueError(f"output is inside a source directory: {resolved}")
+        for parent in (resolved, *resolved.parents):
+            if (parent / ".git").exists():
+                raise ValueError(f"output is inside another Git checkout: {resolved}")
+    if resolved.exists():
+        marker = resolved / OUTPUT_MARKER
+        if not resolved.is_dir() or not marker.is_file() or marker.read_text() != OUTPUT_VERSION:
+            raise ValueError(f"refusing to replace an unmarked output directory: {resolved}")
+    return resolved
+
+
+def build(
+    out: Path,
+    artifact_index: bool = True,
+    css_path: Path | None = None,
+    strict_numbers: bool = False,
+) -> list[dict[str, Any]]:
+    out = validate_output(out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=f".{out.name}-stage-", dir=out.parent) as directory:
+        staging = Path(directory) / "site"
+        projects = _render_site(
+            staging,
+            artifact_index=artifact_index,
+            css_path=css_path,
+            strict_numbers=strict_numbers,
+        )
+        (staging / OUTPUT_MARKER).write_text(OUTPUT_VERSION)
+        # Revalidate after rendering and preserve the last successful build on failure.
+        validate_output(out)
+        backup = Path(directory) / "previous"
+        if out.exists():
+            out.rename(backup)
+        try:
+            staging.rename(out)
+        except OSError:
+            if backup.exists():
+                backup.rename(out)
+            raise
+    return projects
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", default=str(ROOT / "site"))
     ap.add_argument("--css", default=None, help="alternative stylesheet (design variant)")
+    ap.add_argument(
+        "--strict-numbers", action="store_true", help="fail on undeclared literal results"
+    )
+    ap.add_argument(
+        "--audit-only", action="store_true", help="audit card literals without building"
+    )
     args = ap.parse_args()
-    projects = build(Path(args.out), css_path=Path(args.css) if args.css else None)
+    if args.audit_only:
+        manifest = json.loads((ROOT / "manifest.json").read_text())
+        failed = False
+        for entry in manifest["projects"]:
+            path = ROOT / entry["path"] / "portfolio.json"
+            if path.exists():
+                card = json.loads(path.read_text())
+                literals = literal_result_numbers(card, enforce=False)
+                print(card["slug"], literals)
+                failed |= bool(literals) and (
+                    args.strict_numbers or card.get("strict_numbers", False)
+                )
+        if failed:
+            raise SystemExit("undeclared literal result numbers")
+        return
+    projects = build(
+        Path(args.out),
+        css_path=Path(args.css) if args.css else None,
+        strict_numbers=args.strict_numbers,
+    )
     for p in projects:
         n = len(p["numbers_used"]) + len(p["headline"])
         print(
             f"{p['slug']:28s} {n:3d} numbers  {len(p['figures'])} figures  "
             f"{len(p['documents'])} docs"
         )
+        if p["literal_numbers"]:
+            print(f"  literal-number audit: {p['literal_numbers']}")
     print(f"site written to {args.out}")
 
 

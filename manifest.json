@@ -25,6 +25,10 @@
     },
     {
       "path": "../mining-stats-cheatsheet"
+    },
+    {
+      "path": "../groundwater-bi",
+      "optional": true
     }
   ],
   "traps": {
