@@ -23,6 +23,20 @@ import markdown
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 ROOT = Path(__file__).resolve().parents[2]
+GF = "https://fonts.googleapis.com/css2?"
+FONTS = {
+    "style.css": GF + "family=Instrument+Serif&family=Instrument+Sans:wght@400;600"
+    "&family=JetBrains+Mono:wght@400;500&display=swap",
+    "a-manuscript.css": GF
+    + "family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400"
+    "&family=Source+Code+Pro:wght@400;500&display=swap",
+    "b-datasheet.css": GF + "family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500"
+    "&display=swap",
+    "c-catalogue.css": GF + "family=Source+Sans+3:wght@400;600;700&family=Source+Code+Pro:wght@400"
+    "&display=swap",
+    "d-slate.css": GF + "family=Inter+Tight:wght@400;600&family=JetBrains+Mono:wght@400;500"
+    "&display=swap",
+}
 PLACEHOLDER = re.compile(r"\{\{([A-Za-z0-9_.\-/]+)(?::([^}]+))?\}\}")
 
 
@@ -256,7 +270,9 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
     }
 
 
-def build(out: Path, artifact_index: bool = True) -> list[dict[str, Any]]:
+def build(
+    out: Path, artifact_index: bool = True, css_path: Path | None = None
+) -> list[dict[str, Any]]:
     manifest = json.loads((ROOT / "manifest.json").read_text())
     env = Environment(
         loader=FileSystemLoader(ROOT / "templates"),
@@ -277,12 +293,14 @@ def build(out: Path, artifact_index: bool = True) -> list[dict[str, Any]]:
             f["url"] = f"assets/{p['slug']}/{f['name']}"
 
     built_at = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
-    css = (ROOT / "templates" / "style.css").read_text()
+    css = (css_path or ROOT / "templates" / "style.css").read_text()
+    fonts_url = FONTS.get((css_path or Path("style.css")).name, FONTS["style.css"])
     common = {
         "manifest": manifest,
         "projects": projects,
         "built_at": built_at,
         "css": css,
+        "fonts_url": fonts_url,
     }
 
     traps_index: dict[str, list[dict[str, Any]]] = {tid: [] for tid in manifest["traps"]}
@@ -334,8 +352,9 @@ def build(out: Path, artifact_index: bool = True) -> list[dict[str, Any]]:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", default=str(ROOT / "site"))
+    ap.add_argument("--css", default=None, help="alternative stylesheet (design variant)")
     args = ap.parse_args()
-    projects = build(Path(args.out))
+    projects = build(Path(args.out), css_path=Path(args.css) if args.css else None)
     for p in projects:
         n = len(p["numbers_used"]) + len(p["headline"])
         print(
