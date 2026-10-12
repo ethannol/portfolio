@@ -1,0 +1,19 @@
+{% set page_title = 'Failure modes' %}{% set current = 'traps' %}
+{% include "_head.html" %}
+<header>
+  <div class="eyebrow">Cross-cutting</div>
+  <h1 style="margin-top:8px">Failure modes</h1>
+  <p class="lede" style="margin-top:14px">An analysis rarely crashes. It produces a clean-running, plausible, wrong number. These are the ways that happened, or was prevented, across the projects.</p>
+</header>
+{% for t in trap_rows %}
+<section class="trap" id="{{ t.id }}">
+  <h3>{{ t.title }}</h3>
+  <p>{{ t.summary }}</p>
+  <div class="appear">
+  {% for a in t.appearances %}
+    <div><a href="projects/{{ a.project.slug }}.html">{{ a.project.title }}</a><span>{{ a.how|safe }}</span></div>
+  {% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% include "_foot.html" %}

@@ -1,0 +1,95 @@
+{% set page_title = p.title %}{% set current = p.slug %}
+{% include "_head.html" %}
+<header>
+  <div class="eyebrow">{{ p.kind }} · {{ p.status }}{% if p.git_head %} · <span title="git HEAD of the local checkout at build time">{{ p.git_head }}</span>{% endif %}</div>
+  <h1 style="margin-top:8px">{{ p.title }}</h1>
+  <p class="question">{{ p.question }}</p>
+  {% if p.one_liner %}<p class="lede">{{ p.one_liner }}</p>{% endif %}
+</header>
+
+{% if p.headline %}
+<div class="headline">
+{% for h in p.headline %}
+  <div class="tile">
+    <div class="v" title="{{ h.provenance }}">{{ h.shown }}{% if h.unit %}<span class="u">{{ h.unit }}</span>{% endif %}</div>
+    <div class="l">{{ h.label }}</div>
+    {% if h.spread %}<div class="s">{{ h.spread_kind }}: {{ h.spread }}</div>{% endif %}
+    {% if h.note %}<div class="s">{{ h.note }}</div>{% endif %}
+  </div>
+{% endfor %}
+</div>
+{% endif %}
+
+<div class="two">
+  <div>
+    <h2>What was found</h2>
+    {% for para in p.finding %}<p>{{ para|safe }}</p>{% endfor %}
+
+    {% if p.traps %}
+    <h2>Traps met here</h2>
+    {% for t in p.traps %}
+    <p><a href="../failure-modes.html#{{ t.id }}"><strong>{{ t.title }}.</strong></a> {{ t.how|safe }}</p>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <aside class="aside">
+    {% if p.not_claimed %}
+    <h3>Not claimed</h3>
+    <ul>{% for n in p.not_claimed %}<li>{{ n }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% if p.verification %}
+    <h3>Verification</h3>
+    <dl>
+      {% if p.verification.frozen_at %}<dt>Pre-registered</dt><dd>{{ p.verification.frozen_at[:16].replace('T', ' ') }} UTC</dd>{% endif %}
+      {% if p.verification.tests_n %}<dt>Tests</dt><dd title="{{ p.verification.tests_prov }}">{{ p.verification.tests_n }} passing</dd>{% endif %}
+      {% if p.verification.harness %}<dt>Harness</dt><dd>{{ p.verification.harness }}</dd>{% endif %}
+      {% if p.verification.verify %}<dt>Clean rerun</dt><dd>{{ p.verification.verify }}</dd>{% endif %}
+    </dl>
+    {% endif %}
+    {% if p.data %}
+    <h3 style="margin-top:14px">Data</h3>
+    <ul>{% for d in p.data %}<li>{{ d }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% if p.stack %}
+    <h3>Methods</h3>
+    <div class="chips">{% for s in p.stack %}<span class="chip">{{ s }}</span>{% endfor %}</div>
+    {% endif %}
+    {% if p.links %}
+    <h3 style="margin-top:14px">Links</h3>
+    <ul>{% for k, v in p.links.items() %}<li><a href="{{ v }}">{{ k }}</a></li>{% endfor %}</ul>
+    {% endif %}
+  </aside>
+</div>
+
+{% if p.figures %}
+<h2>Figures</h2>
+{% for f in p.figures %}
+<figure class="figure">
+  <img src="../{{ f.url }}" alt="{{ f.caption|striptags }}" loading="lazy">
+  <figcaption>{{ f.caption|safe }}</figcaption>
+</figure>
+{% endfor %}
+{% endif %}
+
+{% if p.slug == 'cairn' %}
+<h2>Projects run under cairn</h2>
+<div class="cairn-table-wrap">
+<table class="cairn-table">
+<tr><th>Project</th><th>Pre-registration frozen</th><th>Tests</th><th>Clean rerun</th></tr>
+{% for q in projects if q.verification.harness %}
+<tr><td><a href="{{ q.slug }}.html">{{ q.title }}</a></td><td class="mono">{{ q.verification.frozen_at[:10] if q.verification.frozen_at else '' }}</td><td class="mono">{{ q.verification.tests_n }}</td><td class="mono">{{ q.verification.verify }}</td></tr>
+{% endfor %}
+</table>
+</div>
+{% endif %}
+
+{% if p.documents %}
+<h2>Documents</h2>
+{% for d in p.documents %}
+<details>
+  <summary>{{ d.title }}<span class="path">{{ d.path }}</span></summary>
+  <div class="doc">{{ d.html|safe }}</div>
+</details>
+{% endfor %}
+{% endif %}
+{% include "_foot.html" %}

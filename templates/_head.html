@@ -1,0 +1,20 @@
+{% if wrapper %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{% endif %}
+<title>{{ page_title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>{{ css|safe }}</style>
+{% if wrapper %}</head>
+<body>
+{% endif %}
+<div class="wrap">
+<nav class="nav">
+  <a class="brand" href="{{ root or './' }}">{{ manifest.title }}</a>
+  <a href="{{ root or './' }}" {% if current == 'index' %}aria-current="page"{% endif %}>Projects</a>
+  <a href="{{ root }}failure-modes.html" {% if current == 'traps' %}aria-current="page"{% endif %}>Failure modes</a>
+  <a href="{{ manifest.github }}">GitHub</a>
+</nav>

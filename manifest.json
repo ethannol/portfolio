@@ -1,0 +1,65 @@
+{
+  "title": "Side Projects Console",
+  "owner": "Ethan Levy",
+  "github": "https://github.com/ethannol",
+  "intro": "Data science studies on public earth-science and mining data, each built to find where the plausible wrong answer lives. Every number on these pages is read from the project's own results ledger at build time; none is typed here.",
+  "projects": [
+    {"path": "../groundwater-audit"},
+    {"path": "../mineral-prospectivity"},
+    {"path": "../animas-gold-king"},
+    {"path": "../produced-water-lithium", "optional": true},
+    {"path": "../cairn"},
+    {"path": "../earth-stats-cheatsheet"},
+    {"path": "../mining-stats-cheatsheet"}
+  ],
+  "traps": {
+    "censoring": {
+      "title": "Non-detects treated as numbers",
+      "summary": "Values below a reporting limit are intervals, not measurements. Substituting zero, the limit, or half the limit manufactures trends when the limit itself changes."
+    },
+    "composition": {
+      "title": "Who got sampled changed",
+      "summary": "A pooled before-and-after comparison compares different populations when the set of sampled wells, sites or sources changes between periods. Only a consistent cohort answers a change question."
+    },
+    "spatial-leakage": {
+      "title": "Spatial leakage in cross-validation",
+      "summary": "Random folds on spatially autocorrelated data put neighbours in train and test. Reported skill is partly the model memorising geography."
+    },
+    "batch-effects": {
+      "title": "Learning the laboratory",
+      "summary": "When analytical method, laboratory or source dataset correlates with the target, a model can learn the batch instead of the science. Leave-one-batch-out evaluation exposes it."
+    },
+    "analyst-choices": {
+      "title": "The answer depends on the analyst's choices",
+      "summary": "Pre-period start, exclusion windows, thresholds and comparison windows can flip a conclusion. A sensitivity grid and a pre-registered primary specification make the dependence visible."
+    },
+    "multiplicity": {
+      "title": "Many comparisons, one reported",
+      "summary": "Several sites times several constituents produces significant cells by chance. False-discovery control and reporting every cell are the defence."
+    },
+    "join-fanout": {
+      "title": "Joins that multiply rows",
+      "summary": "A many-to-many join silently inflates counts and totals. Every join is checked for expected cardinality."
+    },
+    "target-leakage": {
+      "title": "Features that know the answer",
+      "summary": "A column populated after the outcome, or only for positive rows, gives a model the answer. Sensors look for post-outcome and target-proxy columns before any fit."
+    },
+    "framing": {
+      "title": "Questions that steer the answer",
+      "summary": "A prompt that expects an improvement invites a search through specifications until one appears. Freezing the question and decision rule before seeing results removes the search."
+    },
+    "compilation-bias": {
+      "title": "The compilation was built to find the thing",
+      "summary": "Datasets added because they were rich in the target make the target look common where the compilers looked. Rankings must be shown with and without the targeted sources."
+    },
+    "units-definitions": {
+      "title": "Same name, different quantity",
+      "summary": "Nitrate as N versus as NO3, dissolved versus total, ppm versus mg/L. Comparable units and chemical definitions are established before anything is pooled."
+    },
+    "sampling-intensity": {
+      "title": "More sampling looks like change",
+      "summary": "After an event, more organisations sample more often at lower limits. Pooling them with the pre-event record confounds the change with the sampling."
+    }
+  }
+}
