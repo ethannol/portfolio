@@ -21,7 +21,7 @@ import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote, urlsplit
+from urllib.parse import quote, unquote, urlsplit
 
 import markdown
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -325,12 +325,36 @@ def md_to_html(
                     parts = urlsplit(href)
                     if parts.scheme or parts.netloc or not parts.path:
                         continue
-                    target = (project_dir / Path(document_path).parent / parts.path).resolve()
-                    if not target.is_relative_to(project_dir.resolve()):
-                        continue
-                    relative = target.relative_to(project_dir.resolve()).as_posix()
+                    target = (
+                        project_dir / Path(document_path).parent / unquote(parts.path)
+                    ).resolve()
+                    target_root, target_repository, target_revision = (
+                        project_dir.resolve(),
+                        repository,
+                        revision,
+                    )
+                    if not target.is_relative_to(target_root):
+                        parent = project_dir.parent.resolve()
+                        if not target.is_relative_to(parent):
+                            continue
+                        neighbor = parent / target.relative_to(parent).parts[0]
+                        neighbor_card = neighbor / "portfolio.json"
+                        if not neighbor_card.is_file():
+                            continue
+                        target_repository = (
+                            json.loads(neighbor_card.read_text())
+                            .get("links", {})
+                            .get("Repository", "")
+                        )
+                        target_revision, _ = git_revision(neighbor)
+                        target_root = neighbor.resolve()
+                        if not target_repository or not target_revision:
+                            continue
+                    relative = target.relative_to(target_root).as_posix()
+                    relative = "" if relative == "." else "/" + quote(relative)
                     suffix = f"#{parts.fragment}" if parts.fragment else ""
-                    base_url = f"{repository.rstrip('/')}/blob/{revision}/{quote(relative)}"
+                    view = "tree" if target.is_dir() else "blob"
+                    base_url = f"{target_repository.rstrip('/')}/{view}/{target_revision}{relative}"
                     url = base_url + suffix
                     if element.tag == "img":
                         url = base_url + "?raw=true" + suffix

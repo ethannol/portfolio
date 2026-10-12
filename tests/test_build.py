@@ -373,3 +373,23 @@ def test_strict_audit_covers_limitations_and_data(tmp_path: Path) -> None:
     )
     with pytest.raises(ValueError, match="22"):
         b.load_project({"path": str(pdir)}, manifest())
+
+
+def test_embedded_companion_project_links_use_neighbor_revision(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    pdir = make_project(tmp_path)
+    neighbor = tmp_path / "companion"
+    neighbor.mkdir()
+    (neighbor / "portfolio.json").write_text(
+        json.dumps({"links": {"Repository": "https://github.com/owner/companion"}})
+    )
+    monkeypatch.setattr(b, "git_revision", lambda path: ("neighbor-sha", False))
+    rendered = b.md_to_html(
+        "[Companion](../companion)",
+        pdir,
+        "README.md",
+        "https://github.com/owner/project",
+        "own-sha",
+    )
+    assert 'href="https://github.com/owner/companion/tree/neighbor-sha"' in rendered
