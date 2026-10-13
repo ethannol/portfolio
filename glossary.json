@@ -1,0 +1,2648 @@
+{
+  "entries": [
+    {
+      "term": "Acid mine drainage",
+      "definition": "Acidic, metal-laden water produced when water and air react with sulfide minerals exposed by mining. Here, the Gold King release and the ongoing discharge treated at the Gladstone plant are of this kind.",
+      "see_also": [
+        "Treatment plant",
+        "Bulkhead"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Additive log-ratio",
+      "definition": "Log-ratio transform that divides every part of a composition by one chosen reference part before taking logarithms.",
+      "see_also": [
+        "Log-ratio transform",
+        "Centred log-ratio"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Agent",
+      "definition": "Language model given tools and allowed to take a sequence of actions toward a goal. Here, an agent writes and runs the analysis inside the harness.",
+      "see_also": [
+        "LLM",
+        "Harness",
+        "Claude Code"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Akritas-Theil-Sen regression",
+      "definition": "Line-fitting method for data containing values below a detection limit that estimates the slope from pairwise comparisons of ranks rather than from the values themselves. Here, the mining cheat sheet uses it as a trend method for water-quality series with non-detects.",
+      "see_also": [
+        "Non-detect",
+        "Sen's slope",
+        "Censored value"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Analysis workflow skill",
+      "definition": "Written set of step-by-step instructions that the agent loads and follows inside the session. Here, the workflow requires the profile step before any join.",
+      "see_also": [
+        "Profile step",
+        "Agent"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Analyst choices",
+      "definition": "Discretionary settings in an analysis, such as thresholds, windows and exclusions, that can change the conclusion. Here, a pre-registered primary specification and a full sensitivity grid make the dependence explicit.",
+      "see_also": [
+        "Sensitivity grid",
+        "Primary specification",
+        "Pre-registration"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Analytical method family",
+      "definition": "Group of samples analysed by the same laboratory method and reporting the same set of elements. Here, the sediment data split into families with different element suites, and each family is held out in turn as a batch.",
+      "see_also": [
+        "Batch effect",
+        "Element suite",
+        "Leave-one-group-out cross-validation",
+        "Quadrangle"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Aquifer",
+      "definition": "Body of permeable rock or sediment that stores and yields groundwater to wells.",
+      "see_also": [
+        "NWIS"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Architecture decision record",
+      "definition": "Short document recording one design decision, its context and its consequences. Here, the harness keeps one per major choice.",
+      "see_also": [
+        "Decisions log"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Assay",
+      "definition": "Chemical analysis of a rock sample to measure the concentration of a metal of interest. Here, assay quality control is a section of the mining cheat sheet.",
+      "see_also": [
+        "QA/QC",
+        "Certified reference material",
+        "Grade"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "AUC",
+      "definition": "Score between zero and one that measures how well a model ranks positive cases above negative ones across every possible cut-off, where one half means the ranking is no better than chance. Here, it is the main skill measure for the prospectivity and missingness classifiers and is compared across cross-validation designs.",
+      "see_also": [
+        "Average precision",
+        "Classifier",
+        "Chance level",
+        "Cross-validation"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Autocorrelation",
+      "definition": "Tendency of observations taken close together in time to resemble each other, so that consecutive values are not independent and ordinary uncertainty estimates come out too narrow.",
+      "see_also": [
+        "Spatial autocorrelation",
+        "Newey-West standard errors",
+        "Effective sample size"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Average precision",
+      "definition": "Summary of a ranking's quality that averages, over each actual positive case, the share of true positives among the cases ranked above it, so it rewards placing positives near the top. Here, it is reported beside AUC for the prospectivity model because it is sensitive to how rare producer cells are.",
+      "see_also": [
+        "AUC",
+        "Precision",
+        "Base rate"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Bare condition",
+      "definition": "Evaluation condition in which the model runs with no harness or configuration at all, for comparison with the harnessed run.",
+      "see_also": [
+        "Baseline",
+        "Condition",
+        "Harness"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Bare number",
+      "definition": "Literal figure typed into a report rather than drawn from the ledger, which the harness flags because it cannot be verified. Here, the portfolio builder can refuse any undeclared literal.",
+      "see_also": [
+        "Numbers ledger",
+        "Numeric constant"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Base rate",
+      "definition": "Share of cases that are positive in the population before any model is applied. Here, the share of grid cells with a known producer is the reference against which average precision and capture are judged.",
+      "see_also": [
+        "Average precision",
+        "Precision",
+        "Capture curve"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Baseline",
+      "definition": "Reference result against which a method is compared, such as a model session run without the harness or a predictor that always returns the average. Here, a bounded baseline compares bare and harnessed sessions on selected trap tasks.",
+      "see_also": [
+        "Bare condition",
+        "Trap task"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Basin",
+      "definition": "Large geological depression filled with sedimentary rock, within which oil, gas and brines accumulate; a standard unit for grouping wells. Here, basins are the unit for ranking lithium wells and the group held out to test transfer.",
+      "see_also": [
+        "Play type",
+        "Leave-one-group-out cross-validation",
+        "Produced water"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Batch effect",
+      "definition": "Systematic difference between groups of measurements made by different laboratories, methods or source datasets, which a model can learn in place of the property of interest. Here, analytical method families in the sediment data and source datasets in the lithium database both behave this way.",
+      "see_also": [
+        "Leave-one-group-out cross-validation",
+        "Analytical method family",
+        "Distribution shift",
+        "Laboratory change"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Bayesian estimation",
+      "definition": "Approach to inference that combines a prior belief about a quantity with the observed data to produce a probability distribution over its possible values. Here, the earth-science cheat sheet demonstrates it on simple count and proportion models with a hand-written sampler.",
+      "see_also": [
+        "Metropolis-Hastings",
+        "Empirical-Bayes shrinkage"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Benjamini-Hochberg procedure",
+      "definition": "Method for deciding which of many test results to call significant so that the expected share of false calls among them stays below a chosen level. Here, it is applied across every site-by-metal cell in the Animas study and in the hypothesis-test examples of the cheat sheets.",
+      "see_also": [
+        "False-discovery rate",
+        "Multiple comparisons",
+        "p-value"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Blind change-point search",
+      "definition": "Change-point analysis run without telling the method the date of the event under study, so that any break it finds is not a product of looking where the analyst expected one. Here, it is reported beside the interrupted time series as a check on attribution.",
+      "see_also": [
+        "Change-point",
+        "PELT"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Block bootstrap",
+      "definition": "Variant of the bootstrap for ordered data that resamples whole contiguous blocks instead of single observations, so that the dependence between neighbouring values is preserved. Here, an exploratory calendar-block version refits both stages of the Animas model to show how much uncertainty the headline interval leaves out.",
+      "see_also": [
+        "Bootstrap",
+        "Autocorrelation",
+        "Two-stage estimation"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Bootstrap",
+      "definition": "Technique for estimating the uncertainty of a statistic by repeatedly resampling the data with replacement, recomputing the statistic each time, and reading the spread of the results. Here, resampling is done at the level of the independent unit, such as the well, rather than the individual measurement.",
+      "see_also": [
+        "Cluster bootstrap",
+        "Block bootstrap",
+        "Confidence interval",
+        "Unit of analysis"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Bounded run",
+      "definition": "Model session limited in advance by cost, time and the files it can see. Here, each evaluation run executes in an isolated directory holding only the data, the dictionary and the task.",
+      "see_also": [
+        "Condition",
+        "Frozen task"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Brine",
+      "definition": "Water with a very high concentration of dissolved salts, far saltier than seawater. Here, produced-water brines are screened as possible lithium sources.",
+      "see_also": [
+        "Produced water",
+        "Total dissolved solids"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Buffered cross-validation",
+      "definition": "Spatial cross-validation that also removes training cells within a chosen distance of the test block, so that no training case lies close to any test case. Here, it is an exploratory stricter check on the prospectivity result, with model tuning buffered as well.",
+      "see_also": [
+        "Spatial block cross-validation",
+        "Nested cross-validation"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Bulkhead",
+      "definition": "Concrete plug installed in a mine tunnel to hold back water. Here, bulkheads installed in a neighbouring mine years earlier are the suspected cause of the rising trend before the release.",
+      "see_also": [
+        "Acid mine drainage"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "cairn",
+      "definition": "The verification-first harness built in this portfolio: protected raw data, a frozen plan, join and leakage checks, a numbers ledger, script lint and a clean re-execution gate around one model session.",
+      "see_also": [
+        "Harness",
+        "Numbers ledger",
+        "Frozen plan",
+        "Trap task"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Calibration",
+      "definition": "Agreement between a model's predicted probabilities and the frequencies actually observed, so that cases given a given probability come true about that often. Here, it is checked for the prospectivity and lithium models with the caution that unlabelled negatives make the observed frequencies uncertain.",
+      "see_also": [
+        "Positive-unlabelled data",
+        "AUC",
+        "Classifier",
+        "Wilson interval"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Capping",
+      "definition": "Reducing a few extremely high assay values to a chosen ceiling before estimation so that they do not inflate the average grade of a much larger volume of rock.",
+      "see_also": [
+        "Grade",
+        "Assay"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Capture curve",
+      "definition": "Plot showing what share of the known positive cases falls inside the top-ranked fraction of the area as that fraction grows. Here, it expresses the prospectivity model's skill as the share of producer cells found among the highest-ranked cells.",
+      "see_also": [
+        "Prospectivity",
+        "AUC",
+        "Base rate"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Censored maximum likelihood",
+      "definition": "Way of fitting a model when some values are known only to lie below a limit, which treats those values as intervals and finds the parameters most consistent with all the data. Here, it fits the concentration-discharge stage of the Animas model and the censored regressions in the mining cheat sheet.",
+      "see_also": [
+        "Tobit regression",
+        "Censored value",
+        "Maximum likelihood"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Censored value",
+      "definition": "Value known only to lie within a range, such as below a reporting limit, rather than measured exactly. Here, censored values are carried as intervals through medians, tests and regressions rather than replaced.",
+      "see_also": [
+        "Non-detect",
+        "Left-censoring",
+        "Right-censoring",
+        "Kaplan-Meier median",
+        "Tobit regression"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Centred log-ratio",
+      "definition": "Log-ratio transform in which each part is divided by the geometric mean of all parts before taking the logarithm, keeping one value per original part. Here, the mean centred log-ratio of a cell's samples is the prospectivity model's input.",
+      "see_also": [
+        "Log-ratio transform",
+        "Isometric log-ratio",
+        "Compositional data"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Centroid coordinates",
+      "definition": "Location recorded as the centre of a county, field or grid square rather than the actual sampling point. Here, a large share of lithium wells have only such locations, which rules out any claim below basin scale.",
+      "see_also": [
+        "Basin"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Certified reference material",
+      "definition": "Sample with a known, certified concentration that is submitted among routine samples to check whether a laboratory's results are biased.",
+      "see_also": [
+        "QA/QC",
+        "Control chart"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Chance level",
+      "definition": "Score a method would achieve with no real information, used as the floor against which skill is judged. Here, the prospectivity decision rule sets thresholds above the chance AUC rather than testing whether the model equals it.",
+      "see_also": [
+        "AUC",
+        "Decision rule",
+        "Model skill"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Change of support",
+      "definition": "Fact that the spread of grades depends on the volume over which they are averaged, so that variability between small samples overstates variability between large mining blocks.",
+      "see_also": [
+        "Geostatistics",
+        "Kriging",
+        "Grade"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Change-point",
+      "definition": "Time at which the statistical behaviour of a series, such as its average level, shifts. Here, a change-point search that is not told the release date tests whether the strongest break in the Animas record coincides with the spill, the treatment plant, or neither.",
+      "see_also": [
+        "Blind change-point search",
+        "PELT",
+        "Interrupted time series",
+        "CUSUM",
+        "Pettitt test"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Changing sample composition",
+      "definition": "Trap in which the set of wells, sites or sources sampled differs between periods, so that a pooled comparison compares different populations. Here, it is one of the taxonomy's failure modes and the reason the groundwater study answers its question on a cohort.",
+      "see_also": [
+        "Cohort",
+        "Pooled comparison",
+        "Sampling intensity"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Charge balance",
+      "definition": "Check that the positive and negative electrical charges of the dissolved ions in a water analysis add up to roughly zero, used to reject analyses with errors or missing constituents. Here, rows outside a stated tolerance are excluded before analysis.",
+      "see_also": [
+        "Major ions",
+        "Exclusion log"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Checked merge",
+      "definition": "Table join that declares the expected cardinality, such as many-to-one, and fails if the data violate it. Here, it is the harness's defence against join fan-out.",
+      "see_also": [
+        "Join cardinality",
+        "Join fan-out",
+        "Sensor"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Classifier",
+      "definition": "Model that predicts which of two or more categories a case belongs to, usually by producing a probability for each. Here, classifiers predict whether a grid cell holds a gold producer and whether a database row had lithium measured.",
+      "see_also": [
+        "Logistic regression",
+        "Gradient boosting",
+        "AUC",
+        "Precision"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Claude Code",
+      "definition": "Command-line tool from Anthropic in which a language model runs as an agent that can read and write files and execute commands. Here, it is the session the harness surrounds and the runner used for model evaluations.",
+      "see_also": [
+        "Agent",
+        "Hook",
+        "LLM"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Clean re-execution",
+      "definition": "Rerunning every analysis script from the committed raw data into a scratch ledger and checking that each recorded number matches the original. Here, it is the final gate before a session may finish.",
+      "see_also": [
+        "Numbers ledger",
+        "Reproducibility",
+        "Stop gate",
+        "Deterministic"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Closure",
+      "definition": "Constraint that the parts of a composition add up to a constant, which creates artificial correlations between them.",
+      "see_also": [
+        "Compositional data",
+        "Spurious correlation",
+        "Log-ratio transform"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Cluster bootstrap",
+      "definition": "Bootstrap that resamples whole groups of related observations together, such as every well from one source dataset, so that the uncertainty reflects variation between groups rather than treating correlated rows as independent. Here, basin intervals in the lithium study resample wells clustered by source dataset.",
+      "see_also": [
+        "Bootstrap",
+        "Batch effect",
+        "Unit of analysis"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Coding artefact",
+      "definition": "Value that reflects how data were entered rather than what was measured, such as a zero recorded for a non-detect. Here, a few such values drove the apparent change at the upstream control.",
+      "see_also": [
+        "Non-detect",
+        "Upstream control"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Cohort",
+      "definition": "Fixed set of units, such as wells, observed in every period being compared, so that a change in the data reflects change at those units rather than a change in which units were sampled. Here, the groundwater question is answered only on wells sampled in both periods.",
+      "see_also": [
+        "Pooled comparison",
+        "Changing sample composition",
+        "Unit of analysis"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Compilation bias",
+      "definition": "Distortion that arises when a database was assembled by adding datasets because they were rich in the target, making the target look common wherever the compilers looked. Here, the lithium ranking is recomputed without the datasets the compilers named as lithium-focused.",
+      "see_also": [
+        "Selection bias",
+        "Batch effect"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Compliance limit",
+      "definition": "Concentration threshold set by a permit or regulation against which monitoring results are compared.",
+      "see_also": [
+        "Exceedance fraction",
+        "Upper confidence limit"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Compositing",
+      "definition": "Combining assay intervals along a drill hole into equal lengths so that samples carry equal weight in estimation.",
+      "see_also": [
+        "Assay",
+        "Grade"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Compositional data",
+      "definition": "Data whose parts sum to a fixed total, such as percentages or element concentrations in a rock, so that raising one part necessarily lowers the others. Here, stream-sediment chemistry and major-ion chemistry are converted to log-ratios before modelling.",
+      "see_also": [
+        "Closure",
+        "Log-ratio transform",
+        "Centred log-ratio"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Concentration-discharge relationship",
+      "definition": "Relationship between the concentration of a substance in a river and the volume of water flowing past, usually fitted as a line between the logarithms of the two. Here, it is the first stage of the Animas analysis, fitted on the pre-release period so that flow-driven changes can be removed before testing for a lasting shift.",
+      "see_also": [
+        "Flow adjustment",
+        "Discharge",
+        "Seasonal harmonics"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Condition",
+      "definition": "One of the controlled variants under which the same task is run, such as a neutral prompt versus a structured workflow. Here, each frozen task is run under both conditions with repetitions.",
+      "see_also": [
+        "Frozen task",
+        "Repetition",
+        "Structured workflow",
+        "Bare condition"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Confidence interval",
+      "definition": "Range of values, computed from the data, that would contain the true quantity in a stated share of repeated studies. Here, an interval is reported with every headline estimate and the decision rules are written in terms of whether an interval excludes zero.",
+      "see_also": [
+        "p-value",
+        "Bootstrap",
+        "Percentile interval",
+        "Wilson interval",
+        "Standard error"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Confounding",
+      "definition": "Situation where two possible causes change together, so the data cannot say which one produced an effect. Here, the mine release and the treatment plant start fall close together in time, and laboratory and region overlap in the sediment data.",
+      "see_also": [
+        "Treatment plant",
+        "Quadrangle",
+        "Upstream control"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Constituent",
+      "definition": "Substance measured in a water sample, such as arsenic, nitrate or zinc.",
+      "see_also": [
+        "Dissolved versus total fraction",
+        "Units and definitions"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Control chart",
+      "definition": "Running plot of a measured quantity against limits derived from its expected variation, used to spot when a process has drifted. Here, the mining cheat sheet uses control charts on reference-material assays to detect laboratory bias.",
+      "see_also": [
+        "CUSUM",
+        "Certified reference material",
+        "QA/QC"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Counterfactual",
+      "definition": "Estimate of what a series would have done had the event not happened, obtained by extending the pattern seen before the event. Here, the interrupted time series compares the post-release record against the extended pre-release trend.",
+      "see_also": [
+        "Interrupted time series",
+        "Pre-period"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Covariate",
+      "definition": "Variable included in a model to account for its influence on the outcome alongside the quantity of interest. Here, adding the analytical method family as a covariate shows that the model can learn which laboratory analysed a sample.",
+      "see_also": [
+        "Batch effect",
+        "One-hot encoding"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Critical error",
+      "definition": "Scoring category for a mistake that would change the conclusion or report a wrong headline number. Here, it is distinguished from a major error, which is serious but does not overturn the finding.",
+      "see_also": [
+        "Major error",
+        "Mechanical scoring"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Cross-validation",
+      "definition": "Method for estimating how well a model will perform on new data by repeatedly training it on part of the data and testing it on the part held back. Here, the same model is evaluated under several ways of forming the held-back part, because that choice decides what the score means.",
+      "see_also": [
+        "Random folds",
+        "Spatial block cross-validation",
+        "Leave-one-group-out cross-validation",
+        "Buffered cross-validation",
+        "Held-out data"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "CUSUM",
+      "definition": "Chart that accumulates the running sum of deviations from a target value, so that a small persistent shift becomes visible as a steady drift of the line. Here, it detects laboratory bias in reference-material results and change-points in water-quality series in the mining cheat sheet.",
+      "see_also": [
+        "Control chart",
+        "Change-point"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Cut-off grade",
+      "definition": "Lowest grade at which rock is worth mining rather than leaving in place or sending to waste.",
+      "see_also": [
+        "Grade",
+        "Net present value",
+        "Grade-tonnage curve"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Data dictionary",
+      "definition": "Document listing each field in a dataset with its meaning, units and quirks. Here, each study keeps one beside its raw data.",
+      "see_also": [
+        "Provenance"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Data snapshot",
+      "definition": "Copy of the raw data downloaded once, hashed and committed so that every later step runs from identical bytes. Here, each study's snapshot is recorded in a manifest and never modified.",
+      "see_also": [
+        "Manifest",
+        "SHA-256 digest",
+        "Provenance",
+        "Protected paths"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Decision rule",
+      "definition": "Rule written in advance that states what result will count as a positive finding, such as an interval excluding zero under every pre-period start. Here, every study reports its verdict by the rule it froze and says when that rule is an operational threshold rather than a statistical test.",
+      "see_also": [
+        "Pre-registration",
+        "Primary specification",
+        "Verdict",
+        "Statistical significance"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Decisions log",
+      "definition": "Running record of the choices made during a study, with reasons, including blockers and workarounds. Here, each study keeps one beside its pre-registration.",
+      "see_also": [
+        "Pre-registration",
+        "Architecture decision record"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Declustering",
+      "definition": "Weighting of samples so that densely sampled areas do not dominate an average, correcting for the habit of drilling most where the grade looks best. Here, the mining cheat sheet compares declustered estimates against an exhaustively known grid.",
+      "see_also": [
+        "Preferential sampling",
+        "Geostatistics"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Definitional failure",
+      "definition": "Error in which the numbers are computed correctly but for the wrong definition, such as listing a dropped code as included. Here, these were the errors that survived mechanical scoring and were caught only by reading.",
+      "see_also": [
+        "Rubric",
+        "Mechanical scoring"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Detection limit",
+      "definition": "Lowest concentration an analytical method can distinguish from zero; the reporting limit is usually set at or above it.",
+      "see_also": [
+        "Reporting limit",
+        "Non-detect"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Deterministic",
+      "definition": "Describes a process that gives exactly the same output every time it is run on the same input. Here, every check and pipeline step is deterministic, with no model calls, so results can be re-executed and compared.",
+      "see_also": [
+        "Clean re-execution",
+        "Reproducibility"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Difference-in-differences",
+      "definition": "Comparison of the change at an affected site with the change over the same period at an unaffected control site, so that shifts common to both cancel out. Here, Cement Creek is compared with the Animas River upstream of the mine source.",
+      "see_also": [
+        "Upstream control",
+        "Interrupted time series"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Direct lithium extraction",
+      "definition": "Family of processes that pull lithium out of a brine chemically rather than by evaporating the water in ponds. Here, the screening thresholds for lithium concentration and the magnesium-to-lithium ratio come from published literature on its feasibility.",
+      "see_also": [
+        "Mg/Li ratio",
+        "Brine",
+        "Screening rule"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Discharge",
+      "definition": "Volume of water flowing past a point in a river per unit time, measured continuously at a gauge. Here, daily discharge from the paired gauges is the flow variable in the concentration-discharge regression.",
+      "see_also": [
+        "Gauge",
+        "Concentration-discharge relationship",
+        "Flow adjustment"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Dissolved versus total fraction",
+      "definition": "Distinction between the part of a metal that passes through a fine filter, called dissolved, and the whole amount including particles, called total; the two are different quantities and cannot be pooled. Here, the fraction is part of every site-by-metal cell in the Animas study.",
+      "see_also": [
+        "Units and definitions",
+        "Constituent"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Distribution shift",
+      "definition": "Change in the pattern of inputs or outcomes between the data a model was trained on and the data it is applied to, which degrades predictions. Here, holding out a whole laboratory family or basin produces it on purpose to measure how predictions transfer.",
+      "see_also": [
+        "Batch effect",
+        "Leave-one-group-out cross-validation"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Duplicate records",
+      "definition": "Rows that describe the same sample, site or deposit more than once, exactly or approximately. Here, deposit databases and station lists contain them, and joins are tested with a planted duplicate.",
+      "see_also": [
+        "Join cardinality",
+        "Join fan-out"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Duplicate samples",
+      "definition": "Second analyses of the same sample, used to measure a laboratory's precision.",
+      "see_also": [
+        "QA/QC",
+        "Replicate precision"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Effect size",
+      "definition": "Magnitude of a difference or relationship expressed in meaningful units, as distinct from whether it is statistically detectable.",
+      "see_also": [
+        "p-value",
+        "Statistical significance"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Effective sample size",
+      "definition": "Number of independent observations that an autocorrelated series is equivalent to, which is smaller than its row count. Here, the earth-science cheat sheet uses it to correct trend tests on climate series.",
+      "see_also": [
+        "Autocorrelation",
+        "Mann-Kendall test"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Element suite",
+      "definition": "Set of chemical elements measured on a sample. Here, only the elements measured consistently across every method family were kept, and these turned out to describe rock type rather than ore.",
+      "see_also": [
+        "Analytical method family",
+        "Pathfinder element",
+        "Lithology"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Empirical-Bayes shrinkage",
+      "definition": "Method that pulls estimates for small groups toward the overall average by an amount that depends on how noisy each group is. Here, the mining cheat sheet applies it to injury rates at mines with few hours worked.",
+      "see_also": [
+        "Bayesian estimation",
+        "Injury rate"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Exceedance fraction",
+      "definition": "Share of samples whose value is above a stated threshold, such as a water-quality limit.",
+      "see_also": [
+        "Compliance limit"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Exclusion log",
+      "definition": "Record of every row removed from a dataset before analysis, with the reason, so that the choices can be audited. Here, each study writes one during preparation.",
+      "see_also": [
+        "Data snapshot",
+        "Provenance",
+        "Leachate"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Exploratory versus confirmatory",
+      "definition": "Distinction between analyses chosen after seeing the data, which can only suggest, and analyses fixed in advance, which can test. Here, every result not in the pre-registration is labelled exploratory and does not change the frozen verdict.",
+      "see_also": [
+        "Pre-registration",
+        "Post hoc framing",
+        "Verdict"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Extreme value analysis",
+      "definition": "Family of methods for estimating how often rare large events occur by fitting distributions to the largest values in a record. Here, the earth-science cheat sheet fits flood-frequency models to river discharge.",
+      "see_also": [
+        "Return period",
+        "Discharge"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Failure-mode taxonomy",
+      "definition": "Shared list of named ways an analysis of earth-science data goes wrong, used to tag which traps each project met. Here, each portfolio card lists the taxonomy entries it encountered and how.",
+      "see_also": [
+        "Trap task",
+        "Changing sample composition",
+        "Spatial leakage"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "False-discovery rate",
+      "definition": "Expected share of results declared significant that are actually false, which is what procedures such as Benjamini-Hochberg hold below a chosen level.",
+      "see_also": [
+        "Benjamini-Hochberg procedure",
+        "Multiple comparisons"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Feature",
+      "definition": "Input variable a model uses to make predictions.",
+      "see_also": [
+        "Label",
+        "Target leakage"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Filtered denominator",
+      "definition": "Error in which a rate is computed over a table that silently omits some of the units it should include, such as users with no events, so the denominator shrinks. Here, it is one of the harness trap tasks.",
+      "see_also": [
+        "Trap task"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Fixture",
+      "definition": "Small fixed dataset with a known answer used to test code or score a model run. Here, the groundwater evaluation uses synthetic fixtures marked as such on every row.",
+      "see_also": [
+        "Synthetic data",
+        "Test suite"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Flow adjustment",
+      "definition": "Removal of the part of a concentration series explained by how much water was flowing, leaving residuals that can be tested for changes not caused by flow. Here, it is done with a concentration-discharge regression and seasonal terms before the interrupted time series is fitted.",
+      "see_also": [
+        "Concentration-discharge relationship",
+        "Residual",
+        "Discharge",
+        "Seasonal harmonics"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Fresh reviewer",
+      "definition": "Advisory review of an analysis run in a separate, read-only context that has not seen the author's reasoning, with a correctness-only checklist. Here, it is explicitly not a sensor.",
+      "see_also": [
+        "Sensor",
+        "Harness"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Frozen plan",
+      "definition": "Pre-registration document and raw data whose digests are recorded, so that any later change is detected at verification. Here, each study's frozen plan is listed on its portfolio card.",
+      "see_also": [
+        "Pre-registration",
+        "SHA-256 digest",
+        "Protected paths"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Frozen task",
+      "definition": "Analysis task whose wording, data and reference answer are fixed before any model attempts it, so later runs cannot be tailored to the result. Here, the groundwater evaluation scores model sessions on a set of frozen tasks.",
+      "see_also": [
+        "Mechanical scoring",
+        "Rubric",
+        "Condition",
+        "Reference analysis"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Gauge",
+      "definition": "Fixed station on a river where the water level is recorded and converted to discharge.",
+      "see_also": [
+        "Discharge",
+        "NWIS"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Gehan test",
+      "definition": "Rank-based test for comparing two groups that may contain values below a detection limit, without substituting numbers for them. Here, it appears in the mining cheat sheet's censored-inference section.",
+      "see_also": [
+        "Non-detect",
+        "Mann-Whitney U test"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Geostatistics",
+      "definition": "Branch of statistics for data located in space that models how similarity decays with distance and uses it to estimate values at unsampled locations. Here, the mining cheat sheet demonstrates it on a standard teaching deposit with a known answer.",
+      "see_also": [
+        "Variogram",
+        "Kriging",
+        "Spatial autocorrelation",
+        "Sequential Gaussian simulation"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "GHCN-Daily",
+      "definition": "Global Historical Climatology Network daily records of temperature and precipitation at weather stations, published by NOAA. Here, it supplies the daily weather series in the earth-science cheat sheet.",
+      "see_also": [
+        "GISTEMP"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "GISTEMP",
+      "definition": "NASA's global surface temperature analysis, published as monthly departures from a reference period. Here, it is the series for trend and change-point examples in the earth-science cheat sheet.",
+      "see_also": [
+        "GHCN-Daily"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Grade",
+      "definition": "Concentration of the valuable metal in ore, usually given in grams per tonne or percent.",
+      "see_also": [
+        "Assay",
+        "Capping",
+        "Cut-off grade"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Grade-tonnage curve",
+      "definition": "Plot of how much ore, and at what average grade, would be available above each possible cut-off grade.",
+      "see_also": [
+        "Cut-off grade",
+        "Grade"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Grader",
+      "definition": "Script that scores an answer to a trap task as pass or fail against the known answer, itself tested to pass the correct answer and fail the trap answer.",
+      "see_also": [
+        "Trap task",
+        "Mechanical scoring"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Gradient boosting",
+      "definition": "Machine-learning method that builds a predictor from many small decision trees, each fitted to the errors left by the previous ones. Here, boosted trees are one of the two prospectivity models and the main lithium prediction model.",
+      "see_also": [
+        "Logistic regression",
+        "Ridge regression",
+        "Cross-validation",
+        "Hyperparameter tuning"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Grid cell",
+      "definition": "Square of fixed size into which a map is divided so that samples and deposits within it can be summarised as one unit. Here, the cell is the unit of analysis, with each cell's samples averaged and its label set by whether a producer falls inside.",
+      "see_also": [
+        "Unit of analysis",
+        "Pseudo-replication",
+        "Prospectivity"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Gy's sampling theory",
+      "definition": "Theory of how much error is introduced when a small sample is taken from a larger lot of broken rock, relating it to particle size, sample mass and the mineral's properties. Here, the mining cheat sheet uses it to design assay sampling protocols.",
+      "see_also": [
+        "Assay",
+        "Nugget effect"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Harness",
+      "definition": "Software layer that surrounds an automated analysis session with rules, checks and gates it cannot skip. Here, cairn is the harness, and the four studies were built inside it.",
+      "see_also": [
+        "cairn",
+        "Sensor",
+        "Hook",
+        "Clean re-execution"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Held-out data",
+      "definition": "Data kept out of model training and used only to measure performance.",
+      "see_also": [
+        "Cross-validation",
+        "Out-of-fold predictions"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Hook",
+      "definition": "Small program that the agent tooling runs automatically at a fixed moment, such as before a file is written or when the session tries to end, and that can block the action. Here, hooks protect raw data, lint saved scripts and stop the session until verification passes.",
+      "see_also": [
+        "Stop gate",
+        "Protected paths",
+        "Lint",
+        "Claude Code"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "HSSR",
+      "definition": "Hydrogeochemical and Stream Sediment Reconnaissance, the sampling component of the NURE programme.",
+      "see_also": [
+        "NURE",
+        "Reconnaissance survey"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Hydrothermal",
+      "definition": "Formed by hot, mineral-bearing water moving through rock; most gold deposits form this way and leave characteristic chemical traces.",
+      "see_also": [
+        "Mineralisation",
+        "Pathfinder element"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Hyperparameter tuning",
+      "definition": "Choosing the settings of a model that are not learned from the data directly, such as the depth of its trees, by comparing performance across candidate values.",
+      "see_also": [
+        "Nested cross-validation",
+        "Gradient boosting"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Hypothesis test",
+      "definition": "Procedure that asks whether the data are inconsistent with a stated assumption, usually that there is no difference, and summarises the answer as a p-value.",
+      "see_also": [
+        "p-value",
+        "Statistical significance",
+        "Permutation test"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Injury rate",
+      "definition": "Count of injuries per fixed number of hours worked, the standard safety measure in mining. Here, the mining cheat sheet models it with count distributions and shrinkage.",
+      "see_also": [
+        "Poisson distribution",
+        "Empirical-Bayes shrinkage",
+        "MSHA"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Interpolation",
+      "definition": "Estimating values at unsampled locations from the surrounding samples.",
+      "see_also": [
+        "Kriging",
+        "Inverse distance weighting"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Interrupted time series",
+      "definition": "Regression on a series measured before and after an event that estimates the jump in level and the change in slope at the event, relative to the trend extended from the earlier period. Here, it is the primary design of the Animas study, fitted on flow-adjusted residuals with the plume window excluded.",
+      "see_also": [
+        "Level change",
+        "Slope change",
+        "Counterfactual",
+        "Flow adjustment",
+        "Plume window",
+        "Newey-West standard errors"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Inverse distance weighting",
+      "definition": "Simple interpolation that estimates a value at an unsampled location as a weighted average of nearby samples, with closer samples weighted more. Here, the cheat sheets compare it against kriging.",
+      "see_also": [
+        "Kriging",
+        "Interpolation"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Isometric log-ratio",
+      "definition": "Log-ratio transform that produces one fewer coordinate than there are parts, with the coordinates independent of each other, at the cost of being harder to read individually.",
+      "see_also": [
+        "Log-ratio transform",
+        "Centred log-ratio"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Join cardinality",
+      "definition": "Expected relationship between the rows of two tables being combined, such as many-to-one, which when wrong silently multiplies rows and totals. Here, every join is checked against its declared cardinality and a planted duplicate is tested.",
+      "see_also": [
+        "Join fan-out",
+        "Checked merge",
+        "Duplicate records"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Join fan-out",
+      "definition": "Row multiplication that happens when a join matches each row on one side to several rows on the other, inflating counts and sums. Here, it is a taxonomy failure mode and the subject of a harness trap task.",
+      "see_also": [
+        "Join cardinality",
+        "Checked merge",
+        "Trap task"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Kaplan-Meier median",
+      "definition": "Median estimated with a method that treats values below a reporting limit as known only to be somewhere below that limit, instead of replacing them with a number. Here, it is the summary statistic for arsenic and nitrate because the arsenic reporting limit changed over the record.",
+      "see_also": [
+        "Non-detect",
+        "Censored value",
+        "Substitution",
+        "Reporting limit"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Kriging",
+      "definition": "Interpolation method that estimates values at unsampled locations from nearby samples, with weights chosen from a model of how similarity decays with distance, and that also reports the uncertainty of each estimate. Here, ordinary and regression kriging appear in the cheat sheets, scored against known truth where it exists.",
+      "see_also": [
+        "Variogram",
+        "Geostatistics",
+        "Regression kriging",
+        "Inverse distance weighting"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Label",
+      "definition": "Outcome value a model is trained to predict, such as whether a cell contains a producer.",
+      "see_also": [
+        "Feature",
+        "Positive-unlabelled data",
+        "Producer"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Laboratory change",
+      "definition": "Switch of the laboratory or method producing a record, which can shift reporting limits and measured values at the same time. Here, the arsenic record spans one, coinciding with the drop in reporting limit.",
+      "see_also": [
+        "Reporting limit",
+        "Batch effect",
+        "Replicate precision"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Leachate",
+      "definition": "Water that has passed through solid material such as waste rock or soil and picked up dissolved substances; it is not groundwater. Here, leachate and similar samples taken at well sites were excluded from the groundwater record.",
+      "see_also": [
+        "Exclusion log"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Leakage",
+      "definition": "Any way information from the test set or from after the outcome reaches a model during training, so that measured skill is higher than the model would achieve in use. Here, spatial leakage and target leakage are the two forms the studies measure or guard against.",
+      "see_also": [
+        "Spatial leakage",
+        "Target leakage",
+        "Time leakage",
+        "Cross-validation"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Leave-one-group-out cross-validation",
+      "definition": "Cross-validation in which each fold holds out an entire group, such as a laboratory, source dataset or basin, so the score shows how predictions transfer to groups never seen in training. Here, it is run by analytical method family, by source dataset, by basin and by quadrangle.",
+      "see_also": [
+        "Cross-validation",
+        "Batch effect",
+        "Distribution shift",
+        "Leave-one-out validation"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Leave-one-out validation",
+      "definition": "Cross-validation in which each single observation is held out in turn and predicted from all the others. Here, the earth-science cheat sheet validates station interpolation this way, with the trend and variogram refitted inside each fold.",
+      "see_also": [
+        "Cross-validation",
+        "Leave-one-group-out cross-validation"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Left-censoring",
+      "definition": "Censoring in which the true value is known only to be below a limit, the usual case for chemical non-detects.",
+      "see_also": [
+        "Censored value",
+        "Right-censoring",
+        "Non-detect"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Level change",
+      "definition": "In an interrupted time series, the immediate jump or drop in the series at the event, after allowing for the trend before it. Here, the level change in flow-adjusted dissolved zinc at the release is the headline estimate of the Animas study.",
+      "see_also": [
+        "Interrupted time series",
+        "Slope change"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Lint",
+      "definition": "Automatic scan of source code for patterns known to cause errors. Here, every saved script is checked for risky operations such as joins without a cardinality check or filling missing values with zero.",
+      "see_also": [
+        "Hook",
+        "Checked merge"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Lithology",
+      "definition": "Rock type as described by its composition and texture. Here, the elements that carry the prospectivity model's signal distinguish rock types rather than mineralisation.",
+      "see_also": [
+        "Mafic versus felsic",
+        "Mineralisation",
+        "Element suite"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "LLM",
+      "definition": "Large language model: a model trained on text that produces text, used here as an automated analyst whose work is checked rather than trusted.",
+      "see_also": [
+        "Agent",
+        "Claude Code"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Log-ratio transform",
+      "definition": "Family of transformations that express compositional data as logarithms of ratios between parts, which removes closure and lets ordinary statistics be applied.",
+      "see_also": [
+        "Centred log-ratio",
+        "Isometric log-ratio",
+        "Additive log-ratio",
+        "Compositional data"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Logistic regression",
+      "definition": "Model that predicts the probability of a yes-or-no outcome as a smooth function of a weighted sum of the inputs. Here, it is the simpler of the two prospectivity models and the missingness classifier in the lithium study.",
+      "see_also": [
+        "Classifier",
+        "Gradient boosting"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Mafic versus felsic",
+      "definition": "Contrast between dark, iron- and magnesium-rich igneous rocks, called mafic, and light, silica-rich ones, called felsic. Here, the elements that separate producer cells follow this contrast.",
+      "see_also": [
+        "Lithology"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Major error",
+      "definition": "Scoring category for a serious mistake, such as a wrong intermediate count or a dropped exclusion, that does not by itself change the conclusion.",
+      "see_also": [
+        "Critical error",
+        "Mechanical scoring"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Major ions",
+      "definition": "The handful of dissolved substances, such as sodium, chloride, calcium, magnesium and sulfate, that make up nearly all of the salt in natural waters. Here, their log-ratios are the main inputs to lithium prediction.",
+      "see_also": [
+        "Total dissolved solids",
+        "Log-ratio transform",
+        "Charge balance"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Manifest",
+      "definition": "File that records the identity of a set of inputs or outputs: URLs, dates, sizes, digests and counts. Here, each study has a data manifest, the portfolio has a project manifest, and the cheat sheets have run manifests.",
+      "see_also": [
+        "SHA-256 digest",
+        "Provenance",
+        "Data snapshot"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Mann-Kendall test",
+      "definition": "Rank-based test for a steady upward or downward trend in a series that does not assume the data follow any particular distribution. Here, the cheat sheets apply it with corrections for autocorrelation and a seasonal variant for monthly water-quality data.",
+      "see_also": [
+        "Sen's slope",
+        "Seasonal Kendall test",
+        "Autocorrelation",
+        "Effective sample size"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Mann-Whitney U test",
+      "definition": "Rank-based test of whether one group tends to have larger values than another, used when the data are skewed or contain outliers.",
+      "see_also": [
+        "Hypothesis test",
+        "Gehan test"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Maximum likelihood",
+      "definition": "Method of fitting a model by choosing the parameter values under which the observed data would have been most probable.",
+      "see_also": [
+        "Censored maximum likelihood"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Mean reversion",
+      "definition": "Tendency of a series, such as a commodity price, to drift back toward a long-run level after moving away from it, as opposed to a random walk in which each step is independent of the past. Here, the mining cheat sheet fits both models to price histories.",
+      "see_also": [
+        "Monte Carlo simulation"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Mechanical scoring",
+      "definition": "Automatic comparison of a model's numeric answers against reference values by a script, with no human judgement. Here, it checks counts and statistics, while wording and definitions are judged against a rubric.",
+      "see_also": [
+        "Rubric",
+        "Frozen task",
+        "Reference analysis",
+        "Scorer version"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Metropolis-Hastings",
+      "definition": "Algorithm that draws random samples from a probability distribution by proposing moves and accepting or rejecting them, used to approximate Bayesian results that cannot be computed directly.",
+      "see_also": [
+        "Bayesian estimation"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Mg/Li ratio",
+      "definition": "Ratio of magnesium to lithium concentration in a brine; a high ratio makes lithium harder and costlier to separate. Here, it is the second criterion of the screening rule.",
+      "see_also": [
+        "Screening rule",
+        "Brine",
+        "Direct lithium extraction"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Mineralisation",
+      "definition": "Concentration of metals or minerals in rock by geological processes, which is what exploration looks for. Here, the model finds no signature of it, only of rock type.",
+      "see_also": [
+        "Lithology",
+        "Hydrothermal",
+        "Pathfinder element"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Missing not at random",
+      "definition": "Pattern in which whether a value is missing depends on the value itself or on characteristics tied to it, so the measured rows are not representative. Here, a classifier that can tell lithium-measured rows from the rest is the evidence that lithium measurement was not random.",
+      "see_also": [
+        "Missingness audit",
+        "Classifier",
+        "Selection bias"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Missingness audit",
+      "definition": "Check of which rows have a value recorded and which do not, by basin, time and source, and whether a model can predict it. Here, it precedes any lithium ranking or prediction.",
+      "see_also": [
+        "Missing not at random"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Model skill",
+      "definition": "Ability of a model to rank or predict better than chance, measured on held-out data. Here, the word is used only against a pre-registered threshold, never as a loose claim of accuracy.",
+      "see_also": [
+        "AUC",
+        "Chance level",
+        "Decision rule"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Monte Carlo simulation",
+      "definition": "Technique that estimates the distribution of an outcome by running a model many times with inputs drawn at random from their assumed ranges. Here, the mining cheat sheet uses it to produce a range of project values from uncertain prices, costs and grades.",
+      "see_also": [
+        "Net present value",
+        "Bootstrap"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Moran's I",
+      "definition": "Statistic that measures spatial autocorrelation: how much nearby locations resemble each other compared with locations chosen at random. Here, Moran's I of the producer label at increasing distances set the block size for the spatial cross-validation.",
+      "see_also": [
+        "Spatial autocorrelation",
+        "Spatial block cross-validation"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "MRDS",
+      "definition": "Mineral Resources Data System, a USGS database of mineral sites with their commodities and development status. Here, sites recorded as gold producers or past producers supply the positive labels.",
+      "see_also": [
+        "Producer",
+        "USGS",
+        "Label"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "MSHA",
+      "definition": "Mine Safety and Health Administration, the United States agency that publishes mine-level production, hours and accident records.",
+      "see_also": [
+        "Injury rate"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Multicollinearity",
+      "definition": "Situation where model inputs are strongly correlated with each other, which makes individual coefficients unstable and hard to interpret.",
+      "see_also": [
+        "Ridge regression",
+        "Ordinary least squares"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Multiple comparisons",
+      "definition": "Problem that arises when many tests are run at once, because some will come out significant by chance even when nothing is there; also called multiplicity. Here, every site-by-metal cell in the Animas study is reported with false-discovery control rather than only the significant ones.",
+      "see_also": [
+        "Multiplicity",
+        "Benjamini-Hochberg procedure",
+        "False-discovery rate",
+        "p-value"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Multiplicity",
+      "definition": "The taxonomy's name for the multiple-comparisons problem: several sites times several constituents yields significant cells by chance.",
+      "see_also": [
+        "Multiple comparisons",
+        "False-discovery rate"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Negative binomial distribution",
+      "definition": "Model for counts that allows more variation than a simple Poisson model, useful when events cluster or rates differ between units. Here, the mining cheat sheet uses it for injury counts across mines.",
+      "see_also": [
+        "Poisson distribution",
+        "Overdispersion"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Nested cross-validation",
+      "definition": "Cross-validation with an inner loop that chooses model settings and an outer loop that scores the result, so that tuning never sees the test data. Here, inner and outer folds use the same spatial design.",
+      "see_also": [
+        "Hyperparameter tuning",
+        "Cross-validation"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Net present value",
+      "definition": "Sum of a project's future cash flows discounted to today's money, used to judge whether the project is worth doing. Here, the mining cheat sheet estimates it by Monte Carlo simulation.",
+      "see_also": [
+        "Monte Carlo simulation",
+        "Cut-off grade"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Newey-West standard errors",
+      "definition": "Uncertainty estimates for regression coefficients that remain valid when the errors are correlated over time and unequal in size, computed by weighting nearby error products within a chosen window; also called autocorrelation-robust or HAC errors. Here, they give the intervals for the interrupted time series on monthly river samples.",
+      "see_also": [
+        "Autocorrelation",
+        "Standard error",
+        "Interrupted time series"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Nitrate as N",
+      "definition": "Convention of reporting nitrate concentration by the mass of nitrogen it contains rather than the mass of the whole nitrate ion, which gives a different number for the same sample. Here, every nitrate sample appeared under both conventions and was reconciled to one.",
+      "see_also": [
+        "Units and definitions",
+        "Constituent"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Non-detect",
+      "definition": "Measurement reported only as being below the laboratory's reporting limit, with no numeric value. Here, non-detects are treated as intervals in every study, and the lithium database is found to have no way of recording them at all.",
+      "see_also": [
+        "Reporting limit",
+        "Censored value",
+        "Left-censoring",
+        "Substitution"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Nugget effect",
+      "definition": "Part of the variogram at zero distance that represents measurement error and variation at scales smaller than the sample spacing.",
+      "see_also": [
+        "Variogram",
+        "Gy's sampling theory"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Numbers ledger",
+      "definition": "Machine-written file in which every reported figure is recorded by the script that computed it, under a named key, so that reports draw numbers from it instead of having them typed. Here, every number in the reports, READMEs and portfolio cards resolves from a ledger.",
+      "see_also": [
+        "Placeholder",
+        "Bare number",
+        "Clean re-execution",
+        "Template rendering"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Numeric constant",
+      "definition": "Literal number in a document that is a fixed setting rather than a result, such as a threshold or a year, declared with an explanation so that it is not mistaken for an unrecorded finding.",
+      "see_also": [
+        "Bare number",
+        "Numbers ledger"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "NURE",
+      "definition": "National Uranium Resource Evaluation, a United States federal programme whose reconnaissance surveys collected and analysed stream sediments and waters across the country. Here, its Nevada stream-sediment data are the prospectivity model's inputs.",
+      "see_also": [
+        "HSSR",
+        "Stream-sediment geochemistry",
+        "Reconnaissance survey",
+        "Quadrangle"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "NWIS",
+      "definition": "National Water Information System, the USGS database of stream gauges, wells and water-quality samples.",
+      "see_also": [
+        "USGS",
+        "Discharge",
+        "Water Quality Portal"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "One-hot encoding",
+      "definition": "Representation of a category as a set of zero-or-one columns, one per possible value, so that a model can use it as an input. Here, the analytical method family is added this way to test whether the prospectivity model can learn the laboratory.",
+      "see_also": [
+        "Covariate",
+        "Batch effect"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Ordinary least squares",
+      "definition": "Standard method for fitting a straight line or plane by minimising the sum of squared differences between observed and fitted values.",
+      "see_also": [
+        "Residual",
+        "R-squared",
+        "Multicollinearity"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Out-of-fold predictions",
+      "definition": "Predictions for each case made by a model that did not see that case during training, collected across the folds of cross-validation.",
+      "see_also": [
+        "Cross-validation",
+        "Held-out data"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Overdispersion",
+      "definition": "Situation where counts vary more than a simple count model predicts, so that its uncertainty estimates are too narrow.",
+      "see_also": [
+        "Negative binomial distribution",
+        "Poisson distribution"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "p-value",
+      "definition": "Probability, if there were really no effect, of seeing a result at least as extreme as the one observed; a small value means the data would be surprising under that assumption. Here, p-values are reported alongside intervals and never used alone to declare a change.",
+      "see_also": [
+        "Statistical significance",
+        "Confidence interval",
+        "Multiple comparisons",
+        "Hypothesis test"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Pathfinder element",
+      "definition": "Element that is not itself the target but tends to occur with it, so that elevated values point toward ore; arsenic, antimony, mercury and tungsten are classic pathfinders for gold. Here, none was measured consistently enough to keep, so the model's signal is about rock type instead.",
+      "see_also": [
+        "Stream-sediment geochemistry",
+        "Element suite",
+        "Lithology"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "PELT",
+      "definition": "Algorithm, short for pruned exact linear time, that finds the set of change-points in a series that best balances fit against the number of breaks while searching all possibilities efficiently. Here, it performs the blind change-point search in the Animas study.",
+      "see_also": [
+        "Change-point",
+        "Blind change-point search"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Percentile interval",
+      "definition": "Interval formed by taking the central range of results from repeated resampling, cutting off equal tails at each end of the bootstrap distribution.",
+      "see_also": [
+        "Bootstrap",
+        "Confidence interval"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Permutation test",
+      "definition": "Test that judges an observed difference by comparing it with the differences obtained when the group labels are shuffled at random many times.",
+      "see_also": [
+        "Hypothesis test"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Pettitt test",
+      "definition": "Rank-based test for a single shift in the level of a series at an unknown time.",
+      "see_also": [
+        "Change-point"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Pinned dependency",
+      "definition": "Exact recorded version of a library or tool, so that a later install reproduces the same environment. Here, the harness commit and Python version are pinned in each study.",
+      "see_also": [
+        "Reproducibility"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Placeholder",
+      "definition": "Marker in a document template, written as a key in double braces, that is replaced at render time by the ledger value for that key.",
+      "see_also": [
+        "Numbers ledger",
+        "Template rendering"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Play type",
+      "definition": "Classification of an oil or gas accumulation by the kind of rock and trap that holds it, such as conventional or shale. Here, it is one of the inputs to lithium prediction.",
+      "see_also": [
+        "Basin",
+        "Produced water"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Plume window",
+      "definition": "Period immediately after a spill during which the pulse of contaminated water passes a site, excluded from a before-and-after comparison because it is not the lasting condition being tested. Here, its length is one of the choices varied in the sensitivity grid.",
+      "see_also": [
+        "Interrupted time series",
+        "Sensitivity grid"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Poisson distribution",
+      "definition": "Standard model for the number of events in a fixed interval when events occur independently at a constant rate.",
+      "see_also": [
+        "Negative binomial distribution",
+        "Overdispersion",
+        "Injury rate"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Pooled comparison",
+      "definition": "Before-and-after comparison that uses all samples from each period regardless of which units they came from. Here, pooled medians moved in opposite directions for the two constituents, and neither reflected change at wells.",
+      "see_also": [
+        "Cohort",
+        "Changing sample composition"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Positive control",
+      "definition": "Task the pipeline is known to be able to do, run alongside the real one so that a failure on the real task can be read as a property of the data rather than a broken method. Here, predicting total dissolved solids from the same inputs is the positive control for lithium prediction.",
+      "see_also": [
+        "Total dissolved solids",
+        "Decision rule"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Positive-unlabelled data",
+      "definition": "Classification setting in which the positive cases are known but the rest are merely unlabelled, not confirmed negative. Here, cells without a known producer may still hold gold, so precision and calibration are read with that in mind.",
+      "see_also": [
+        "Calibration",
+        "Precision",
+        "Label"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Post hoc framing",
+      "definition": "Trap in which a question that expects a particular result invites a search through analysis variants until one appears. Here, freezing the question and decision rule before any result is seen prevents the search.",
+      "see_also": [
+        "Pre-registration",
+        "Exploratory versus confirmatory",
+        "Decision rule",
+        "Question list"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Post-period",
+      "definition": "Stretch of record after an event over which a lasting change is assessed; where it ends is an analyst choice. Here, ending it early reverses the sign of the Animas estimate.",
+      "see_also": [
+        "Pre-period",
+        "Sensitivity grid",
+        "Analyst choices"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Pre-period",
+      "definition": "Stretch of record before an event that provides the baseline trend; where it starts is an analyst choice that can change the result. Here, several pre-period starts are reported and the primary one was fixed in advance.",
+      "see_also": [
+        "Post-period",
+        "Counterfactual",
+        "Sensitivity grid"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Pre-registration",
+      "definition": "Written statement of the question, data, unit of analysis, methods and decision rule, fixed before any result is seen, so that the analysis cannot be adjusted toward a desired answer. Here, each study's pre-registration is hashed and frozen by the harness before fitting.",
+      "see_also": [
+        "Frozen plan",
+        "Decision rule",
+        "Post hoc framing",
+        "Exploratory versus confirmatory"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Precision",
+      "definition": "Among the cases a model flags as positive, the share that really are positive. Here, precision at the lithium screening floor measures how many of the wells the model flags as promising actually clear the floor.",
+      "see_also": [
+        "Average precision",
+        "Base rate",
+        "Classifier"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Prediction limit",
+      "definition": "Bound that a single future measurement is expected to stay within with stated confidence, used to judge whether a new sample is unusual against a background record.",
+      "see_also": [
+        "Tolerance limit",
+        "Upper confidence limit"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Preferential sampling",
+      "definition": "Taking more samples where the quantity of interest is expected to be high, as when drilling concentrates on rich ground, so that a plain average is biased upward. Here, declustering corrects it in the mining cheat sheet.",
+      "see_also": [
+        "Declustering",
+        "Selection bias"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Primary specification",
+      "definition": "The single analysis variant named in advance as the one whose result is the headline, with every other variant reported as sensitivity. Here, it is fixed in each pre-registration.",
+      "see_also": [
+        "Decision rule",
+        "Sensitivity grid",
+        "Analyst choices"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Principal component analysis",
+      "definition": "Technique that rewrites many correlated variables as a smaller number of uncorrelated combinations ordered by how much of the variation each explains.",
+      "see_also": [
+        "Multicollinearity"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Produced water",
+      "definition": "Water brought to the surface along with oil and gas, usually a salty brine from the rock being drilled. Here, it is the source of the lithium measurements in the USGS database.",
+      "see_also": [
+        "Brine",
+        "Total dissolved solids",
+        "Play type"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Producer",
+      "definition": "Development status in a mineral-site database meaning the site has been mined for the commodity; a past producer is one no longer operating. Here, both statuses count as positive, while prospects and occurrences are dropped as ambiguous.",
+      "see_also": [
+        "MRDS",
+        "Label"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Profile step",
+      "definition": "Required first step in which the agent writes and reads a summary of each raw table, including row grain, keys, missing values and censoring markers, before joining or summarising anything.",
+      "see_also": [
+        "Row grain",
+        "Sensor",
+        "Analysis workflow skill"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Prospectivity",
+      "definition": "Estimated likelihood that an area contains an undiscovered mineral deposit, usually expressed as a map ranking ground by its resemblance to known deposits. Here, the question is how much of a prospectivity model's apparent skill is spatial leakage.",
+      "see_also": [
+        "Spatial leakage",
+        "Capture curve",
+        "Grid cell"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Protected paths",
+      "definition": "Files, such as raw data and the frozen pre-registration, that a hook refuses to let the agent modify.",
+      "see_also": [
+        "Hook",
+        "Frozen plan",
+        "Data snapshot"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "ProUCL",
+      "definition": "Software from the United States Environmental Protection Agency for computing upper confidence limits and related statistics on environmental data with non-detects. Here, its method of choosing a limit is reproduced in the mining cheat sheet.",
+      "see_also": [
+        "Upper confidence limit"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Provenance",
+      "definition": "Record of where data came from: the query, URL, date, response headers, sizes and digests of each file. Here, every study's data manifest holds it.",
+      "see_also": [
+        "Manifest",
+        "Data snapshot",
+        "SHA-256 digest"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Pseudo-replication",
+      "definition": "Treating correlated measurements, such as several samples from one site, as independent observations, which overstates the sample size and shrinks the uncertainty. Here, samples are averaged to one value per grid cell and repeated samples are collapsed to one per well.",
+      "see_also": [
+        "Unit of analysis",
+        "Cluster bootstrap"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "QA/QC",
+      "definition": "Quality assurance and quality control: the routine of inserting known samples, duplicates and blanks into a batch of assays to measure a laboratory's precision, bias and contamination. Here, the mining cheat sheet demonstrates it on synthetic data with planted problems.",
+      "see_also": [
+        "Assay",
+        "Certified reference material",
+        "Control chart",
+        "Duplicate samples"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Quadrangle",
+      "definition": "Rectangular map sheet bounded by lines of latitude and longitude, used to organise regional surveys. Here, each NURE quadrangle was analysed by a particular laboratory, so laboratory and region overlap.",
+      "see_also": [
+        "NURE",
+        "Analytical method family",
+        "Confounding"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Question list",
+      "definition": "File listing the study's questions, in which the agent may update only status, answer keys and notes, so that questions cannot be reworded or dropped after results are seen.",
+      "see_also": [
+        "Frozen plan",
+        "Post hoc framing"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "R-squared",
+      "definition": "Share of the variation in the outcome that a model's predictions account for, from zero for no explanatory value to one for perfect prediction. Here, held-out R-squared is one of the pre-registered usefulness measures for lithium prediction and the positive control.",
+      "see_also": [
+        "RMSE",
+        "Cross-validation",
+        "Held-out data"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Random folds",
+      "definition": "Technique where a dataset is randomly shuffled and split into K equal-sized subsets (\"folds\") to evaluate how well a model generalizes. Here, it is the conventional design whose score is compared against spatial and batch-aware designs to measure leakage.",
+      "see_also": [
+        "Cross-validation",
+        "Spatial block cross-validation"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Reach",
+      "definition": "Stretch of a river between two points, treated as one unit for sampling. Here, several reaches from the headwaters downstream are analysed.",
+      "see_also": [
+        "Upstream control",
+        "Gauge"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Reconnaissance survey",
+      "definition": "Wide, low-density first-pass survey meant to cover a region quickly rather than characterise any site in detail. Here, the NURE data are of this kind, with samples analysed by several laboratories over the years.",
+      "see_also": [
+        "NURE",
+        "HSSR"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Reference analysis",
+      "definition": "Checked analysis of the same data, built and tested independently, whose numbers serve as the answer key for scoring model runs. Here, it is a correctness reference, not a measure of human time.",
+      "see_also": [
+        "Frozen task",
+        "Mechanical scoring"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Regression kriging",
+      "definition": "Kriging applied to the residuals of a regression, so that a known trend, such as temperature falling with elevation, is removed first and only the remaining spatial pattern is interpolated. Here, the earth-science cheat sheet interpolates station temperatures this way.",
+      "see_also": [
+        "Kriging",
+        "Residual"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Regression on order statistics",
+      "definition": "Method for summarising data with non-detects that fits a distribution to the detected values and uses it to fill in plausible values for the censored ones. Here, it is compared with Kaplan-Meier and substitution in the mining cheat sheet.",
+      "see_also": [
+        "Non-detect",
+        "Kaplan-Meier median",
+        "Substitution"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Reliability analysis",
+      "definition": "Study of how long equipment runs before failing and how quickly it is repaired, summarised as availability. Here, the mining cheat sheet applies it to synthetic haul-truck failures.",
+      "see_also": [
+        "Weibull distribution",
+        "Right-censoring"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Repetition",
+      "definition": "Independent rerun of an evaluation with a new random allocation, block offset or model session, so that the spread across reruns can be reported. Here, prospectivity scores are given as the mean and range over repetitions, and each model-evaluation cell is run more than once.",
+      "see_also": [
+        "Cross-validation",
+        "Condition"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Replicate precision",
+      "definition": "How closely repeated measurements of the same sample agree, which sets the smallest change a laboratory can detect. Here, the measured arsenic shift is within it.",
+      "see_also": [
+        "Laboratory change",
+        "QA/QC",
+        "Duplicate samples"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Reporting limit",
+      "definition": "Lowest concentration a laboratory will report as a number; results below it are returned as non-detects. Here, the arsenic reporting limit fell sharply when the laboratory changed, which by itself can manufacture an apparent decline.",
+      "see_also": [
+        "Non-detect",
+        "Detection limit",
+        "Laboratory change",
+        "Substitution"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Reproducibility",
+      "definition": "Property that another person, or a later run, can regenerate the same results from the same inputs and code. Here, it is enforced with committed snapshots, digests, pinned versions and clean re-execution.",
+      "see_also": [
+        "Clean re-execution",
+        "Data snapshot",
+        "SHA-256 digest",
+        "Pinned dependency"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Residual",
+      "definition": "Difference between an observed value and the value a model predicts for it. Here, flow-adjusted residuals are what the interrupted time series is fitted on.",
+      "see_also": [
+        "Flow adjustment",
+        "Ordinary least squares"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Return period",
+      "definition": "Average interval between events of at least a given size, so that a hundred-year flood is one expected to be equalled or exceeded once a century on average.",
+      "see_also": [
+        "Extreme value analysis"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Ridge regression",
+      "definition": "Linear regression with a penalty that shrinks the coefficients toward zero, which stabilises the fit when inputs are correlated or numerous. Here, it is the simpler of the two lithium prediction models.",
+      "see_also": [
+        "Gradient boosting",
+        "Ordinary least squares",
+        "Multicollinearity"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Right-censoring",
+      "definition": "Censoring in which the true value is known only to be above a limit, as when a part has not yet failed by the end of observation.",
+      "see_also": [
+        "Censored value",
+        "Left-censoring",
+        "Weibull distribution"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "RMSE",
+      "definition": "Root mean squared error: the typical size of a model's prediction errors, found by averaging the squared errors and taking the square root. Here, lithium prediction error is reported as RMSE in logarithmic units under each cross-validation design.",
+      "see_also": [
+        "R-squared",
+        "Cross-validation"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Row grain",
+      "definition": "What one row of a table represents, such as one sample or one well in one year, which must be known before joining or summarising.",
+      "see_also": [
+        "Unit of analysis",
+        "Profile step",
+        "Join cardinality"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Rubric",
+      "definition": "Written set of criteria for judging the parts of an answer that cannot be checked by matching numbers, such as whether a definition was stated correctly. Here, it catches definitional errors that passed the mechanical checks.",
+      "see_also": [
+        "Mechanical scoring",
+        "Definitional failure"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Sampling intensity",
+      "definition": "How often and at how many places measurements are taken, which can change after an event as more organisations begin sampling with different methods and limits. Here, the Animas study holds one organisation constant across the release because pooling the newcomers changed the estimate substantially.",
+      "see_also": [
+        "Changing sample composition",
+        "Reporting limit"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "SARIMA",
+      "definition": "Time-series forecasting model that combines dependence on recent values and recent errors with a repeating seasonal pattern. Here, the earth-science cheat sheet fits it to monthly carbon-dioxide data and compares it with simple baselines on held-out data.",
+      "see_also": [
+        "Held-out data",
+        "Autocorrelation"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Scorer version",
+      "definition": "Numbered definition of how model answers are compared with reference answers; a corrected version can re-score recorded answers without new model calls. Here, the original scores remain the published baseline and the corrected re-score is reported separately.",
+      "see_also": [
+        "Mechanical scoring"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Screening rule",
+      "definition": "Simple pre-stated threshold test used to flag candidates worth further attention, not a measure of viability. Here, a well passes if its lithium is at or above a cited floor and its magnesium-to-lithium ratio at or below a cited ceiling.",
+      "see_also": [
+        "Direct lithium extraction",
+        "Mg/Li ratio",
+        "Decision rule"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Seasonal harmonics",
+      "definition": "Sine and cosine terms added to a regression to capture a repeating annual cycle without assuming its shape in advance. Here, two harmonics absorb the seasonal pattern in river metal concentrations before the interrupted time series is fitted.",
+      "see_also": [
+        "Flow adjustment",
+        "Interrupted time series"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Seasonal Kendall test",
+      "definition": "Version of the Mann-Kendall trend test that compares values only within the same month or season across years, so that the annual cycle does not masquerade as a trend. Here, the mining cheat sheet applies it to flow-adjusted copper.",
+      "see_also": [
+        "Mann-Kendall test",
+        "Sen's slope",
+        "Flow adjustment"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Selection bias",
+      "definition": "Error that arises when the cases included in a dataset differ systematically from the population of interest.",
+      "see_also": [
+        "Compilation bias",
+        "Preferential sampling",
+        "Missing not at random"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Sen's slope",
+      "definition": "Trend estimate equal to the median of the slopes between every pair of points, which is resistant to outliers and pairs naturally with the Mann-Kendall test.",
+      "see_also": [
+        "Mann-Kendall test",
+        "Akritas-Theil-Sen regression"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Sensitivity grid",
+      "definition": "Full set of results from rerunning an analysis under every combination of the analyst's discretionary choices, reported together. Here, the Animas level change is shown under every pre-period start, plume window and post-period end.",
+      "see_also": [
+        "Analyst choices",
+        "Primary specification",
+        "Pre-period",
+        "Post-period"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Sensor",
+      "definition": "Deterministic check in the harness that detects one specific kind of analysis error and records what it found. Here, the design thesis is that every documented analysis failure corresponds to a missing sensor.",
+      "see_also": [
+        "Harness",
+        "Checked merge",
+        "Lint",
+        "Hook"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Sequential Gaussian simulation",
+      "definition": "Geostatistical method that generates many equally plausible maps of a property, each honouring the samples and the spatial model, so that uncertainty in volumes or tonnages can be assessed.",
+      "see_also": [
+        "Kriging",
+        "Geostatistics"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "SHA-256 digest",
+      "definition": "Fixed-length fingerprint computed from a file's bytes, which changes if any byte changes, used to prove that a file is the one recorded. Here, digests of raw data, extracts and source files are recorded in manifests and checked before evidence is accepted.",
+      "see_also": [
+        "Manifest",
+        "Reproducibility",
+        "Frozen plan",
+        "Verification evidence"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Sign test",
+      "definition": "Test that counts how many paired differences are positive versus negative, ignoring their size, and asks whether the split could have arisen by chance. Here, it compares early and late concentrations at the same wells and works even where one value is a non-detect.",
+      "see_also": [
+        "Wilcoxon signed-rank test",
+        "Cohort",
+        "Non-detect"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Slope change",
+      "definition": "In an interrupted time series, the difference between the trend after the event and the trend before it.",
+      "see_also": [
+        "Interrupted time series",
+        "Level change"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Spatial autocorrelation",
+      "definition": "Tendency of locations near each other to have similar values, so that nearby samples carry overlapping information. Here, it is measured with Moran's I and respected by placing whole blocks of cells on one side of each validation split.",
+      "see_also": [
+        "Moran's I",
+        "Spatial leakage",
+        "Spatial block cross-validation",
+        "Autocorrelation"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Spatial block cross-validation",
+      "definition": "Cross-validation in which the map is divided into square blocks and every cell in a block is assigned to the same fold, so that test cells are not next to training cells. Here, block sizes are swept and the reference size is chosen from the autocorrelation range.",
+      "see_also": [
+        "Random folds",
+        "Spatial autocorrelation",
+        "Moran's I",
+        "Spatial leakage",
+        "Buffered cross-validation"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Spatial leakage",
+      "definition": "Leakage that occurs when training and test cases are spatial neighbours, so the model is credited for remembering where things are. Here, the difference between random-fold and block-fold scores is the measured size of this leakage.",
+      "see_also": [
+        "Leakage",
+        "Spatial autocorrelation",
+        "Spatial block cross-validation",
+        "Random folds"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Spurious correlation",
+      "definition": "Apparent relationship between two variables that arises from how they were constructed or sampled rather than from any real connection. Here, closure is the usual source in geochemical data.",
+      "see_also": [
+        "Closure",
+        "Compositional data"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Standard error",
+      "definition": "Estimated uncertainty of a statistic, expressed as the spread it would show across repeated samples.",
+      "see_also": [
+        "Confidence interval",
+        "Newey-West standard errors"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Statistical significance",
+      "definition": "Label for a result whose p-value falls below a chosen threshold, meaning it would be unusual if there were no effect; it says nothing about whether the effect is large or important. Here, the studies treat it as one input to a pre-registered decision rule rather than as a verdict.",
+      "see_also": [
+        "p-value",
+        "Effect size",
+        "Decision rule"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Stop gate",
+      "definition": "Hook that refuses to let the session end while verification fails, for a bounded number of attempts, after which it reports what is unresolved.",
+      "see_also": [
+        "Hook",
+        "Clean re-execution"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Stream-sediment geochemistry",
+      "definition": "Chemical analysis of sediment collected from stream beds, used in exploration because a stream averages the rocks and any mineralisation in the catchment above the sample point. Here, the regional NURE survey provides it.",
+      "see_also": [
+        "NURE",
+        "Pathfinder element",
+        "Reconnaissance survey"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Structured workflow",
+      "definition": "Prompting condition that gives the model a fixed sequence of analysis steps and automatic checks to follow. Here, it is compared against a neutral prompt for cost and error rate.",
+      "see_also": [
+        "Condition"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Substitution",
+      "definition": "Practice of replacing a non-detect with a fixed number such as zero, the reporting limit or half of it before analysis. Here, it is avoided because a changing reporting limit then produces a trend that is not in the data, and where shown it is labelled as a sensitivity.",
+      "see_also": [
+        "Non-detect",
+        "Reporting limit",
+        "Kaplan-Meier median"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Synthetic data",
+      "definition": "Data generated from stated rules or parameters rather than observed, used where no public dataset exists or where a known answer is needed. Here, assay quality-control and equipment-failure data are synthetic, and every trap task is built on it.",
+      "see_also": [
+        "Trap task",
+        "Fixture"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Target leakage",
+      "definition": "Leakage in which an input column is filled in after the outcome is known, or only for positive cases, so that it carries the answer. Here, the harness checks for such columns before any model is fitted.",
+      "see_also": [
+        "Leakage",
+        "Time leakage",
+        "Sensor"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Template rendering",
+      "definition": "Step that produces a finished report or README by filling the placeholders in a template from the ledger. Here, the rendered files carry a note that they must not be edited by hand.",
+      "see_also": [
+        "Placeholder",
+        "Numbers ledger"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Test suite",
+      "definition": "Set of automated tests that check individual pieces of code against known answers. Here, each project's tests cover its units, censoring, joins and statistics, and the hand-written algorithms are cross-checked against standard libraries.",
+      "see_also": [
+        "Verification evidence",
+        "Fixture"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Time leakage",
+      "definition": "Leakage in which a model trained on a time-ordered panel sees future rows, for example because the split was shuffled or a column was backfilled. Here, a harness sensor and a trap task cover it.",
+      "see_also": [
+        "Leakage",
+        "Target leakage",
+        "Sensor"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Tobit regression",
+      "definition": "Regression for an outcome that is observed exactly only above a limit, which treats values at the limit as bounds and fits the model by maximum likelihood. Here, it lets non-detects enter the Animas models without substitution.",
+      "see_also": [
+        "Censored value",
+        "Censored maximum likelihood",
+        "Non-detect"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Tolerance limit",
+      "definition": "Bound that a stated share of all future measurements is expected to stay within, with stated confidence.",
+      "see_also": [
+        "Prediction limit",
+        "Upper confidence limit"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Total dissolved solids",
+      "definition": "Total mass of all substances dissolved in a volume of water, a measure of saltiness. Here, it is an input to lithium prediction and the target of the positive-control model.",
+      "see_also": [
+        "Brine",
+        "Positive control",
+        "Major ions"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Trap task",
+      "definition": "Synthetic analysis task with a known correct answer and one documented way to get a plausible, clean-running wrong one. Here, the harness evaluation is a suite of such tasks covering join fan-out, filtered denominators, leakage, censoring and leading framing.",
+      "see_also": [
+        "Grader",
+        "Synthetic data",
+        "Harness",
+        "Failure-mode taxonomy"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Treatment plant",
+      "definition": "Facility that removes metals and neutralises acidity in mine water before it enters a stream. Here, the plant that began operating shortly after the release is the confounder that prevents attributing any change to the spill.",
+      "see_also": [
+        "Acid mine drainage",
+        "Confounding"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Two-stage estimation",
+      "definition": "Analysis in which the output of one fitted model, such as its residuals, becomes the input to a second, so that uncertainty from the first stage is easy to leave out. Here, the headline Animas intervals are conditional on the first-stage flow adjustment, and an exploratory refit of both stages shows the difference.",
+      "see_also": [
+        "Flow adjustment",
+        "Interrupted time series",
+        "Block bootstrap"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Unit of analysis",
+      "definition": "Thing that counts as one independent observation in a study, such as a well, a grid cell or a site, chosen before analysis. Here, it is fixed in the pre-registration and governs how uncertainty is computed.",
+      "see_also": [
+        "Pseudo-replication",
+        "Pre-registration",
+        "Bootstrap",
+        "Row grain"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Units and definitions",
+      "definition": "Trap in which the same quantity is stored under different units or chemical definitions, such as nitrate as nitrogen versus as the whole ion, or dissolved versus total. Here, they are reconciled before any pooling.",
+      "see_also": [
+        "Nitrate as N",
+        "Dissolved versus total fraction",
+        "Constituent"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "Upper confidence limit",
+      "definition": "One-sided interval bound used in compliance work to state a value the true average is unlikely to exceed. Here, the mining cheat sheet selects it in the manner of the ProUCL software for data with non-detects.",
+      "see_also": [
+        "Confidence interval",
+        "ProUCL",
+        "Prediction limit"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Upstream control",
+      "definition": "Site above the source of a disturbance, assumed unaffected, whose record shows what would have happened without it. Here, the Animas above Cement Creek serves as the control for the difference-in-differences.",
+      "see_also": [
+        "Difference-in-differences",
+        "Confounding",
+        "Coding artefact"
+      ],
+      "group": "data"
+    },
+    {
+      "term": "USGS",
+      "definition": "United States Geological Survey, the federal science agency whose public-domain data on water, minerals and geochemistry underlie most of these studies.",
+      "see_also": [
+        "Water Quality Portal",
+        "NWIS",
+        "NURE",
+        "MRDS"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Variogram",
+      "definition": "Plot of how different two measurements tend to be as a function of the distance between them, which is the model of spatial dependence used by kriging. Here, variograms are fitted inside each validation fold in the earth-science cheat sheet and used for grade estimation in the mining one.",
+      "see_also": [
+        "Kriging",
+        "Spatial autocorrelation",
+        "Nugget effect"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Verdict",
+      "definition": "Outcome returned by applying the pre-registered decision rule to the results, stated in the rule's own terms.",
+      "see_also": [
+        "Decision rule",
+        "Exploratory versus confirmatory"
+      ],
+      "group": "evaluation"
+    },
+    {
+      "term": "Verification evidence",
+      "definition": "Recorded proof that a project's checks were actually run: the commit, timestamp, command, test counts, exit status and source digests. Here, the portfolio builder shows evidence only when the recorded revision and digests match the checkout, and otherwise labels test counts as definitions rather than passes.",
+      "see_also": [
+        "SHA-256 digest",
+        "Test suite",
+        "Manifest"
+      ],
+      "group": "tooling"
+    },
+    {
+      "term": "Water Quality Portal",
+      "definition": "Public online service that serves water-chemistry results collected by federal, state and other organisations in the United States in a common format. Here, it supplies the groundwater and river chemistry records.",
+      "see_also": [
+        "USGS",
+        "NWIS"
+      ],
+      "group": "domain"
+    },
+    {
+      "term": "Weibull distribution",
+      "definition": "Flexible model for times to failure whose shape says whether failures become more or less likely as equipment ages. Here, the mining cheat sheet fits it to haul-truck component failures, with censoring for parts that have not yet failed.",
+      "see_also": [
+        "Right-censoring",
+        "Reliability analysis"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Wilcoxon signed-rank test",
+      "definition": "Test for paired data that ranks the sizes of the differences and asks whether positive and negative differences are balanced; it is more sensitive than the sign test but needs both values measured. Here, it is applied to well pairs where both periods have detected values.",
+      "see_also": [
+        "Sign test",
+        "Cohort"
+      ],
+      "group": "statistics"
+    },
+    {
+      "term": "Wilson interval",
+      "definition": "Confidence interval for a proportion that behaves well with small counts and with proportions near zero or one. Here, it bounds the observed exceedance frequency in the lithium calibration audit.",
+      "see_also": [
+        "Confidence interval",
+        "Calibration"
+      ],
+      "group": "statistics"
+    }
+  ]
+}

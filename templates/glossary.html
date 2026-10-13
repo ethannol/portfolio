@@ -1,0 +1,34 @@
+{% set page_title = 'Glossary' %}{% set current = 'glossary' %}
+{% include "_head.html" %}
+<header>
+  <div class="eyebrow">{{ manifest.owner }}</div>
+  <h1 style="margin-top:8px">Glossary</h1>
+  <p class="lede" style="margin-top:14px">Plain definitions of the technical terms used on this site. Where a term has a particular use in these studies, a second sentence beginning "Here" says what it is.</p>
+</header>
+<div class="letters">
+{% for letter in letters %}<a href="#g-{{ letter }}">{{ letter }}</a>{% endfor %}
+</div>
+<div class="gfilter"><label for="gq">Find a term</label><input id="gq" type="search" placeholder="type to filter" autocomplete="off"></div>
+<dl class="glossary" id="glossary">
+{% for letter, group in grouped %}
+<div class="gletter" id="g-{{ letter }}"><span>{{ letter }}</span></div>
+{% for e in group %}
+<div class="gentry" id="{{ e.anchor }}" data-term="{{ e.term|lower }}">
+  <dt>{{ e.term }} <span class="chip">{{ e.group }}</span></dt>
+  <dd>{{ e.definition }}{% if e.see_also %}<div class="seealso">See also: {% for s in e.see_also %}<a href="#{{ s.anchor }}">{{ s.term }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</div>{% endif %}</dd>
+</div>
+{% endfor %}
+{% endfor %}
+</dl>
+<script>
+(function () {
+  var q = document.getElementById("gq"), entries = document.querySelectorAll(".gentry"), heads = document.querySelectorAll(".gletter");
+  if (!q) return;
+  q.addEventListener("input", function () {
+    var v = q.value.trim().toLowerCase();
+    entries.forEach(function (el) { el.hidden = v !== "" && el.dataset.term.indexOf(v) === -1 && el.textContent.toLowerCase().indexOf(v) === -1; });
+    heads.forEach(function (h) { h.hidden = v !== ""; });
+  });
+})();
+</script>
+{% include "_foot.html" %}

@@ -146,3 +146,18 @@ summary .path { font-family: var(--mono); font-size: 12px; color: var(--fg-muted
 .doc.chooser { max-width: none; }
 .doc .mermaid { margin: 14px 0 26px; overflow-x: auto; }
 .doc .mermaid svg { max-width: 100%; height: auto; }
+/* Glossary */
+.letters { display: flex; flex-wrap: wrap; gap: 4px 10px; font-family: var(--mono); font-size: 13px; margin: 18px 0 10px; }
+.letters a { text-decoration: none; color: var(--fg-muted); }
+.letters a:hover { color: var(--accent-ink); }
+.gfilter { display: flex; align-items: center; gap: 10px; margin: 8px 0 18px; }
+.gfilter label { font-size: 13px; color: var(--fg-muted); }
+.gfilter input { font: inherit; font-size: 15px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg-raised); color: var(--fg); min-width: 0; width: min(100%, 320px); }
+.glossary { margin: 0; }
+.gletter { font-family: var(--display); font-size: 26px; color: var(--fg-muted); padding: 22px 0 6px; border-bottom: 1px solid var(--line); margin-bottom: 6px; }
+.gentry { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.gentry dt { font-weight: 600; font-size: 16.5px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.gentry dt .chip { font-size: 11px; }
+.gentry dd { margin: 4px 0 0; max-width: 76ch; font-size: 15.5px; }
+.seealso { font-size: 13.5px; color: var(--fg-muted); margin-top: 4px; }
+.gentry:target { background: var(--bg-sunken); outline: 2px solid var(--accent); outline-offset: 4px; }

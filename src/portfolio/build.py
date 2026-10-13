@@ -538,6 +538,35 @@ def method_chooser(manifest: dict[str, Any]) -> dict[str, Any] | None:
     }
 
 
+def _anchor(term: str) -> str:
+    return "t-" + re.sub(r"[^a-z0-9]+", "-", term.lower()).strip("-")
+
+
+def load_glossary() -> dict[str, Any]:
+    """Read glossary.json; every see_also target must be an entry."""
+    path = ROOT / "glossary.json"
+    if not path.exists():
+        return {"letters": [], "grouped": []}
+    entries = json.loads(path.read_text())["entries"]
+    by_term = {e["term"]: e for e in entries}
+    for e in entries:
+        e["anchor"] = _anchor(e["term"])
+        for target in e.get("see_also", []):
+            if target not in by_term:
+                raise KeyError(f"glossary: see_also target {target!r} is not an entry")
+    for e in entries:
+        e["see_also"] = [{"term": t, "anchor": by_term[t]["anchor"]} for t in e.get("see_also", [])]
+    entries.sort(key=lambda e: e["term"].lower())
+    grouped: list[tuple[str, list[dict[str, Any]]]] = []
+    for e in entries:
+        first = e["term"][0].upper()
+        letter = first if first.isalpha() else "#"
+        if not grouped or grouped[-1][0] != letter:
+            grouped.append((letter, []))
+        grouped[-1][1].append(e)
+    return {"letters": [g[0] for g in grouped], "grouped": grouped}
+
+
 def _render_site(
     out: Path,
     artifact_index: bool = True,
@@ -604,6 +633,9 @@ def _render_site(
         env.get_template("references.html").render(**common, root="", wrapper=True)
     )
     chooser = method_chooser(manifest)
+    (out / "glossary.html").write_text(
+        env.get_template("glossary.html").render(**common, root="", wrapper=True, **load_glossary())
+    )
     (out / "methods.html").write_text(
         env.get_template("methods.html").render(**common, root="", chooser=chooser, wrapper=True)
     )
