@@ -29,8 +29,9 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 ROOT = Path(__file__).resolve().parents[2]
 GF = "https://fonts.googleapis.com/css2?"
 FONTS = {
-    "style.css": GF + "family=Instrument+Serif&family=Instrument+Sans:wght@400;600"
-    "&family=JetBrains+Mono:wght@400;500&display=swap",
+    "style.css": GF
+    + "family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@400;600"
+    "&family=JetBrains+Mono:wght@400&display=swap",
     "a-manuscript.css": GF
     + "family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400"
     "&family=Source+Code+Pro:wght@400;500&display=swap",
@@ -299,6 +300,7 @@ def literal_result_numbers(card: dict[str, Any], enforce: bool = True) -> list[d
         (field, text) for field in ("not_claimed", "data", "stack") for text in card.get(field, [])
     )
     fields.extend(("finding", text) for text in card.get("finding", []))
+    fields.append(("story", card.get("_story_text", "")))
     summary = card.get("summary", {})
     fields.append(("summary.question", summary.get("question", "")))
     fields.append(("summary.result", summary.get("result", "")))
@@ -398,6 +400,11 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
     if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", card["slug"]):
         raise ValueError(f"invalid project slug: {card['slug']!r}")
     git_head, git_dirty = git_revision(pdir)
+    if card.get("story"):
+        story_path = pdir / card["story"]
+        if not story_path.exists():
+            raise FileNotFoundError(story_path)
+        card["_story_text"] = story_path.read_text()
     ledger = Ledger(pdir, card.get("ledger", {"type": "none"}), card.get("sources"))
     literal_numbers = literal_result_numbers(card)
     used: list[dict[str, Any]] = []
@@ -445,6 +452,32 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
                 "name": Path(f["path"]).name,
                 "caption": substitute(f["caption"], ledger, used),
             }
+        )
+
+    story_html = ""
+    story_figures: list[dict[str, Any]] = []
+    if card.get("story"):
+        story_text = card["_story_text"]
+
+        def embed(m: re.Match[str]) -> str:
+            caption, rel = m.group(1), m.group(2)
+            src = pdir / rel
+            if not src.exists():
+                raise FileNotFoundError(f"{card['slug']} story figure: {src}")
+            name = Path(rel).name
+            if all(f["name"] != name for f in story_figures):
+                story_figures.append({"src": src, "name": name})
+            alt = re.sub(r"<[^>]+>", "", caption)
+            return (
+                f'<figure class="figure"><img src="../assets/{card["slug"]}/{name}" '
+                f'alt="{html.escape(alt)}" loading="lazy">'
+                f"<figcaption>{caption}</figcaption></figure>"
+            )
+
+        story_text = substitute(story_text, ledger, used)
+        story_text = re.sub(r"!\[([^\]]*)\]\(([^)\s]+\.(?:png|svg|jpg))\)", embed, story_text)
+        story_html = md_to_html(
+            story_text, pdir, card["story"], card.get("links", {}).get("Repository", ""), git_head
         )
 
     docs = []
@@ -506,6 +539,8 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
         "finding": finding,
         "traps": traps,
         "figures": figures,
+        "story": story_html,
+        "story_figures": story_figures,
         "not_claimed": [substitute(text, ledger, used) for text in card.get("not_claimed", [])],
         "documents": docs,
         "verification": verification,
@@ -607,6 +642,8 @@ def _render_site(
         for f in p["figures"]:
             shutil.copy(f["src"], adir / f["name"])
             f["url"] = f"assets/{p['slug']}/{f['name']}"
+        for f in p["story_figures"]:
+            shutil.copy(f["src"], adir / f["name"])
 
     built_at = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
     css = (css_path or ROOT / "templates" / "style.css").read_text()

@@ -6,6 +6,12 @@
   <p class="question">{{ p.question|safe }}</p>
 </header>
 
+{% if p.story %}
+<article class="story">
+{{ p.story|safe }}
+</article>
+<h2>At a glance</h2>
+{% endif %}
 <dl class="ahc page">
   <dt>Aim</dt><dd>{{ p.aim|safe }}</dd>
   {% if p.hypothesis %}<dt>Hypothesis</dt><dd>{{ p.hypothesis|safe }}</dd>{% endif %}
@@ -72,7 +78,7 @@
   </aside>
 </div>
 
-{% if p.figures %}
+{% if p.figures and not p.story %}
 <h2>Figures</h2>
 {% for f in p.figures %}
 <figure class="figure">
