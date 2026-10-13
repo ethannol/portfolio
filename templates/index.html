@@ -6,6 +6,9 @@
   <p class="lede" style="margin-top:14px">{{ manifest.intro }}</p>
 </header>
 
+<h2>How to choose a method</h2>
+<p>{{ manifest.methods_intro }} <a href="methods.html">The method chooser</a> goes from the question and the shape of the data to a method, and from the method to a runnable worked example.</p>
+
 <h2>Studies</h2>
 <div class="list">
 {% for p in projects if p.kind == 'study' %}
@@ -13,7 +16,7 @@
     <h3><a href="projects/{{ p.slug }}.html">{{ p.title }}</a></h3>
     <p class="q">{{ p.summary.question|safe }}</p>
     <div class="row"><span class="k">Techniques</span><span class="chips">{% for t in p.summary.techniques %}<span class="chip">{{ t|safe }}</span>{% endfor %}</span></div>
-    <div class="row"><span class="k">Pitfalls</span><span class="chips">{% for t in p.summary.pitfalls %}<span class="chip pit">{{ t }}</span>{% endfor %}</span></div>
+    <div class="row"><span class="k">Pitfalls</span><span class="chips">{% for t in p.summary.pitfalls %}<a class="chip pit" href="failure-modes.html{% if t.id %}#{{ t.id }}{% endif %}">{{ t.text|safe }}</a>{% endfor %}</span></div>
     <div class="row"><span class="k">Result</span><span class="r">{{ p.summary.result|safe }}</span></div>
     <div class="status">{% if p.verification.frozen_at %}Plan frozen before analysis, {{ p.verification.frozen_at[:10] }}{% else %}{{ p.status }}{% endif %} · <a href="projects/{{ p.slug }}.html">Full page</a></div>
   </article>

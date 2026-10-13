@@ -2,7 +2,7 @@
   "title": "Ethan Levy's Projects",
   "owner": "Ethan Levy",
   "github": "https://github.com/ethannol",
-  "intro": "Data analysis studies on public earth-science and mining data. Each study states the question it asked, the techniques it used, the pitfalls it met in the data, and what it found.",
+  "intro": "Data analysis studies on public earth-science and mining data, and the worked examples behind them. The purpose is to show how to approach the kinds of analysis problems that earth-science and mining data pose: censored values, seasonality, autocorrelation in time and space, compositional closure, preferential sampling. Each study states the question it asked, the techniques it used, the pitfalls it met in the data, and what it found.",
   "projects": [
     {
       "path": "../groundwater-audit"
@@ -81,5 +81,11 @@
       "summary": "After an event, more organisations sample more often at lower limits. Pooling them with the pre-event record confounds the change with the sampling."
     }
   },
-  "heading": "Projects"
+  "heading": "Projects",
+  "methods_intro": "Generic statistics flowcharts start from the test. Earth-science and mining data break the assumptions before the test is reached, so this chart starts from the question and the shape of the data, and every box points to a script that runs the method on real data.",
+  "method_chooser": {
+    "project": "../mining-stats-cheatsheet",
+    "path": "FLOWCHART.md",
+    "title": "Choosing a statistical method for earth-science and mining data"
+  }
 }

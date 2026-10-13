@@ -15,6 +15,7 @@
 <nav class="nav">
   <a class="brand" href="{{ root or './' }}">{{ manifest.owner }}</a>
   <a href="{{ root or './' }}" {% if current == 'index' %}aria-current="page"{% endif %}>Projects</a>
+  <a href="{{ root }}methods.html" {% if current == 'methods' %}aria-current="page"{% endif %}>Methods</a>
   <a href="{{ root }}failure-modes.html" {% if current == 'traps' %}aria-current="page"{% endif %}>Pitfalls</a>
   <a href="{{ root }}references.html" {% if current == 'references' %}aria-current="page"{% endif %}>References</a>
   <a href="{{ manifest.github }}">GitHub</a>

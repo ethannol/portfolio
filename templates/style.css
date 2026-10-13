@@ -142,3 +142,7 @@ summary .path { font-family: var(--mono); font-size: 12px; color: var(--fg-muted
 .entry .status { padding-top: 2px; }
 .entry .status::before { content: none; }
 @media (max-width: 520px) { .entry .row { grid-template-columns: 1fr; gap: 2px; } }
+
+.doc.chooser { max-width: none; }
+.doc .mermaid { margin: 14px 0 26px; overflow-x: auto; }
+.doc .mermaid svg { max-width: 100%; height: auto; }

@@ -72,7 +72,10 @@ class Ledger:
         if self.kind == "json":
             node = self.data
             for part in ref.split("."):
-                node = node[part]
+                if isinstance(node, list):
+                    node = node[int(part)]
+                else:
+                    node = node[part]
             return node, f"{self.spec['path']} path {ref}"
         raise KeyError(f"no default ledger for reference {ref!r}")
 
@@ -289,7 +292,10 @@ def literal_result_numbers(card: dict[str, Any], enforce: bool = True) -> list[d
     fields.append(("summary.question", summary.get("question", "")))
     fields.append(("summary.result", summary.get("result", "")))
     fields.extend(("summary.techniques", t) for t in summary.get("techniques", []))
-    fields.extend(("summary.pitfalls", t) for t in summary.get("pitfalls", []))
+    fields.extend(
+        ("summary.pitfalls", t["text"] if isinstance(t, dict) else t)
+        for t in summary.get("pitfalls", [])
+    )
     fields.extend(("headline.label", item["label"]) for item in card.get("headline", []))
     fields.extend(("headline.note", item.get("note", "")) for item in card.get("headline", []))
     fields.extend(("traps.how", item["how"]) for item in card.get("traps", []))
@@ -475,7 +481,14 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
             "techniques": [
                 substitute(t, ledger, used) for t in card.get("summary", {}).get("techniques", [])
             ],
-            "pitfalls": card.get("summary", {}).get("pitfalls") or [t["title"] for t in traps],
+            "pitfalls": [
+                {
+                    "id": t["id"] if isinstance(t, dict) else "",
+                    "text": substitute(t["text"] if isinstance(t, dict) else t, ledger, used),
+                }
+                for t in card.get("summary", {}).get("pitfalls", [])
+            ]
+            or [{"id": t["id"], "text": t["title"]} for t in traps],
             "result": substitute(card.get("summary", {}).get("result", ""), ledger, used),
         },
         "headline": headline,
@@ -494,6 +507,34 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
         "literal_numbers": literal_numbers,
         "numbers_used": used,
         "dir": pdir,
+    }
+
+
+def method_chooser(manifest: dict[str, Any]) -> dict[str, Any] | None:
+    """Render the method-chooser document (a Markdown file with Mermaid charts kept in one of
+    the project checkouts) with its links resolved to that repository at its current
+    revision. Returns None when the manifest names no chooser."""
+    entry = manifest.get("method_chooser")
+    if not entry:
+        return None
+    pdir = (ROOT / entry["project"]).resolve()
+    path = pdir / entry["path"]
+    if not (pdir / "portfolio.json").is_file() or not path.is_file():
+        print(f"method chooser skipped: {path} is not checked out")
+        return None
+    card = json.loads((pdir / "portfolio.json").read_text())
+    revision, dirty = git_revision(pdir)
+    repository = card.get("links", {}).get("Repository", "")
+    return {
+        "title": entry.get("title", "Choosing a method"),
+        "html": md_to_html(path.read_text(), pdir, entry["path"], repository, revision),
+        "source_url": f"{repository.rstrip('/')}/blob/{revision}/{entry['path']}"
+        if repository and revision
+        else "",
+        "project": card.get("title", pdir.name),
+        "slug": card.get("slug", pdir.name),
+        "revision": revision,
+        "dirty": dirty,
     }
 
 
@@ -561,6 +602,10 @@ def _render_site(
         )
     (out / "references.html").write_text(
         env.get_template("references.html").render(**common, root="", wrapper=True)
+    )
+    chooser = method_chooser(manifest)
+    (out / "methods.html").write_text(
+        env.get_template("methods.html").render(**common, root="", chooser=chooser, wrapper=True)
     )
     (out / "failure-modes.html").write_text(
         env.get_template("traps.html").render(**common, root="", trap_rows=trap_rows, wrapper=True)

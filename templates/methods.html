@@ -1,0 +1,14 @@
+{% set page_title = 'Choosing a method' %}{% set current = 'methods' %}
+{% include "_head.html" %}
+<header>
+  <div class="eyebrow">{{ manifest.owner }}</div>
+  <h1 style="margin-top:8px">Choosing a method</h1>
+  <p class="lede" style="margin-top:14px">{{ manifest.methods_intro }}</p>
+</header>
+{% if chooser %}
+<p class="status">Kept in <a href="projects/{{ chooser.slug }}.html">{{ chooser.project }}</a>{% if chooser.source_url %} as <a href="{{ chooser.source_url }}">Markdown with Mermaid charts</a>{% endif %}; links open the script at the revision this page was built from.</p>
+<div class="doc chooser">{{ chooser.html|safe }}</div>
+{% else %}
+<p>No method chooser is configured in the manifest.</p>
+{% endif %}
+{% include "_foot.html" %}

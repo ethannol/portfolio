@@ -393,3 +393,27 @@ def test_embedded_companion_project_links_use_neighbor_revision(
         "own-sha",
     )
     assert 'href="https://github.com/owner/companion/tree/neighbor-sha"' in rendered
+
+
+def test_method_chooser_renders_markdown_with_repository_links(tmp_path: Path) -> None:
+    pdir = make_project(tmp_path)
+    subprocess.run(["git", "init", "-q"], cwd=pdir, check=True)
+    subprocess.run(["git", "add", "."], cwd=pdir, check=True)
+    subprocess.run(
+        ["git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "init"],
+        cwd=pdir,
+        check=True,
+    )
+    card = json.loads((pdir / "portfolio.json").read_text())
+    card["links"] = {"Repository": "https://example.org/proj"}
+    (pdir / "portfolio.json").write_text(json.dumps(card))
+    (pdir / "FLOW.md").write_text(
+        "# Chooser\n\n```mermaid\nflowchart TD\n  A --> B[Walk]\n```\n\n[walk](walk.md)\n"
+    )
+    chooser = b.method_chooser({"method_chooser": {"project": str(pdir), "path": "FLOW.md"}})
+    assert chooser is not None
+    assert 'class="language-mermaid"' in chooser["html"]
+    head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=pdir, text=True).strip()
+    assert f"https://example.org/proj/blob/{head}/walk.md" in chooser["html"]
+    assert chooser["source_url"].endswith(f"/blob/{head}/FLOW.md")
+    assert b.method_chooser({}) is None
