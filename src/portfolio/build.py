@@ -40,6 +40,17 @@ FONTS = {
     "&display=swap",
     "d-slate.css": GF + "family=Inter+Tight:wght@400;600&family=JetBrains+Mono:wght@400;500"
     "&display=swap",
+    "e-classic.css": GF
+    + "family=Sora:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;"
+    "0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400&display=swap",
+    "f-warm.css": GF
+    + "family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@400;600"
+    "&family=JetBrains+Mono:wght@400&display=swap",
+    "g-clean.css": GF
+    + "family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap",
+    "h-magazine.css": GF
+    + "family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito+Sans:wght@400;600"
+    "&family=JetBrains+Mono:wght@400&display=swap",
 }
 PLACEHOLDER = re.compile(r"\{\{([A-Za-z0-9_.\-/]+)(?::([^}]+))?\}\}")
 
