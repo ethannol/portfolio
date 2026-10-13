@@ -1,11 +1,10 @@
 /* Magazine: white page, big display serif titles, sans body, generous rules between pieces. */
-:root { --bg:#ffffff; --fg:#1c1c1c; --muted:#6a6a6a; --line:#dcdcdc; --panel:#f6f6f6; --accent:#8a1c1c; --warn:#9a6a1c; --pill:#f1f1f1; --pill-fg:#333333; --pill-pit:#f9e9e9; --pill-pit-fg:#8a1c1c; --head:"Fraunces",Georgia,serif; --body:"Nunito Sans","Helvetica Neue",Arial,sans-serif; --ui:"Nunito Sans","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace; --fs:18.5px; --col:740px; --radius:4px; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#171717; --fg:#ebebeb; --muted:#a3a3a3; --line:#333333; --panel:#202020; --accent:#e07a7a; --warn:#e0b060; --pill:#2a2a2a; --pill-fg:#e6e6e6; --pill-pit:#3a2222; --pill-pit-fg:#f1a3a3; color-scheme: dark; } }
-:root[data-theme="dark"] { --bg:#171717; --fg:#ebebeb; --muted:#a3a3a3; --line:#333333; --panel:#202020; --accent:#e07a7a; --warn:#e0b060; --pill:#2a2a2a; --pill-fg:#e6e6e6; --pill-pit:#3a2222; --pill-pit-fg:#f1a3a3; color-scheme: dark; }
+:root { --bg:#ffffff; --fg:#1c1c1c; --muted:#6a6a6a; --line:#dcdcdc; --panel:#f6f6f6; --accent:#8a1c1c; --warn:#9a6a1c; --pill:#f1f1f1; --pill-fg:#333333; --pill-pit:#f9e9e9; --pill-pit-fg:#8a1c1c; --head:"Fraunces",Georgia,serif; --body:"Nunito Sans","Helvetica Neue",Arial,sans-serif; --ui:"Nunito Sans","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace; --fs:18.5px; --col:740px; --radius:4px; color-scheme: light; }
 h1 { font-size: clamp(40px, 7vw, 56px); font-weight: 600; letter-spacing: -.02em; }
 .entry h3, .card h3 { font-size: 32px; font-weight: 600; }
 .entry, .card { border-bottom: 2px solid var(--fg); padding: 40px 0; }
 .nav { border-bottom: 2px solid var(--fg); }
+/* Light-only by design: the page keeps its paper colour whatever the viewer's theme. */
 /* Shared reading-column base for the Medium-style variants. Tokens are set per variant. */
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: var(--fs, 19px); line-height: 1.65; -webkit-font-smoothing: antialiased; }

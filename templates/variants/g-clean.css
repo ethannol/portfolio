@@ -1,10 +1,9 @@
 /* Clean: all-sans, newsletter feel, light grey panels, blue links, roomy. */
-:root { --bg:#ffffff; --fg:#1f2328; --muted:#636c76; --line:#e6e8eb; --panel:#f4f6f8; --accent:#2a63c9; --warn:#b26a00; --pill:#eef2f7; --pill-fg:#2b3a4f; --pill-pit:#fdeeea; --pill-pit-fg:#a33b1f; --head:"Figtree","Helvetica Neue",Arial,sans-serif; --body:"Figtree","Helvetica Neue",Arial,sans-serif; --ui:"Figtree","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace; --fs:18.5px; --col:720px; --radius:10px; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#15181c; --fg:#e7eaee; --muted:#9aa3ad; --line:#2a3037; --panel:#1d2227; --accent:#7fb0ff; --warn:#e0a84a; --pill:#242a31; --pill-fg:#dfe5ec; --pill-pit:#3a2420; --pill-pit-fg:#f2a48c; color-scheme: dark; } }
-:root[data-theme="dark"] { --bg:#15181c; --fg:#e7eaee; --muted:#9aa3ad; --line:#2a3037; --panel:#1d2227; --accent:#7fb0ff; --warn:#e0a84a; --pill:#242a31; --pill-fg:#dfe5ec; --pill-pit:#3a2420; --pill-pit-fg:#f2a48c; color-scheme: dark; }
+:root { --bg:#ffffff; --fg:#1f2328; --muted:#636c76; --line:#e6e8eb; --panel:#f4f6f8; --accent:#2a63c9; --warn:#b26a00; --pill:#eef2f7; --pill-fg:#2b3a4f; --pill-pit:#fdeeea; --pill-pit-fg:#a33b1f; --head:"Figtree","Helvetica Neue",Arial,sans-serif; --body:"Figtree","Helvetica Neue",Arial,sans-serif; --ui:"Figtree","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace; --fs:18.5px; --col:720px; --radius:10px; color-scheme: light; }
 .entry, .card { background: var(--panel); border: 0; border-radius: 14px; padding: 26px 28px; margin-bottom: 18px; }
 .entry:last-child, .card:last-child { border-bottom: 0; }
 .list, .grid { border: 0; }
+/* Light-only by design: the page keeps its paper colour whatever the viewer's theme. */
 /* Shared reading-column base for the Medium-style variants. Tokens are set per variant. */
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: var(--fs, 19px); line-height: 1.65; -webkit-font-smoothing: antialiased; }

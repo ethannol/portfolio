@@ -1,7 +1,6 @@
 /* Classic: white page, serif body, sans headings, grey metadata, soft grey pills. The Medium default. */
-:root { --bg:#ffffff; --fg:#242424; --muted:#6b6b6b; --line:#e8e8e8; --panel:#f7f7f7; --accent:#1a8917; --warn:#b26a00; --pill:#f2f2f2; --pill-fg:#242424; --pill-pit:#eaf3ea; --pill-pit-fg:#1a6b18; --head:"Sora","Helvetica Neue",Arial,sans-serif; --body:"Source Serif 4",Georgia,serif; --ui:"Sora","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace; --fs:20px; --col:700px; --radius:6px; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#191919; --fg:#e6e6e6; --muted:#a0a0a0; --line:#2e2e2e; --panel:#222222; --accent:#5cc457; --warn:#e0a84a; --pill:#2a2a2a; --pill-fg:#e6e6e6; --pill-pit:#1f2e1f; --pill-pit-fg:#8fd98a; color-scheme: dark; } }
-:root[data-theme="dark"] { --bg:#191919; --fg:#e6e6e6; --muted:#a0a0a0; --line:#2e2e2e; --panel:#222222; --accent:#5cc457; --warn:#e0a84a; --pill:#2a2a2a; --pill-fg:#e6e6e6; --pill-pit:#1f2e1f; --pill-pit-fg:#8fd98a; color-scheme: dark; }
+:root { --bg:#ffffff; --fg:#242424; --muted:#6b6b6b; --line:#e8e8e8; --panel:#f7f7f7; --accent:#1a8917; --warn:#b26a00; --pill:#f2f2f2; --pill-fg:#242424; --pill-pit:#eaf3ea; --pill-pit-fg:#1a6b18; --head:"Sora","Helvetica Neue",Arial,sans-serif; --body:"Source Serif 4",Georgia,serif; --ui:"Sora","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace; --fs:20px; --col:700px; --radius:6px; color-scheme: light; }
+/* Light-only by design: the page keeps its paper colour whatever the viewer's theme. */
 /* Shared reading-column base for the Medium-style variants. Tokens are set per variant. */
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: var(--fs, 19px); line-height: 1.65; -webkit-font-smoothing: antialiased; }

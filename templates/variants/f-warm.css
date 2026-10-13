@@ -1,7 +1,6 @@
 /* Warm: soft cream page, serif throughout, rounded pills, friendlier and a little larger. */
-:root { --bg:#fbf8f3; --fg:#2b2622; --muted:#75695f; --line:#e9e2d8; --panel:#f3ede4; --accent:#b4552d; --warn:#9a6a1c; --pill:#efe7db; --pill-fg:#4a3f36; --pill-pit:#f7e3d8; --pill-pit-fg:#8c3f1d; --head:"Lora",Georgia,serif; --body:"Lora",Georgia,serif; --ui:"Nunito Sans","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace; --fs:19px; --col:720px; --radius:10px; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1d1a17; --fg:#ece6de; --muted:#a79c90; --line:#352f2a; --panel:#262220; --accent:#e5865c; --warn:#e0b060; --pill:#2f2925; --pill-fg:#ece6de; --pill-pit:#3a2a22; --pill-pit-fg:#f0a883; color-scheme: dark; } }
-:root[data-theme="dark"] { --bg:#1d1a17; --fg:#ece6de; --muted:#a79c90; --line:#352f2a; --panel:#262220; --accent:#e5865c; --warn:#e0b060; --pill:#2f2925; --pill-fg:#ece6de; --pill-pit:#3a2a22; --pill-pit-fg:#f0a883; color-scheme: dark; }
+:root { --bg:#fbf8f3; --fg:#2b2622; --muted:#75695f; --line:#e9e2d8; --panel:#f3ede4; --accent:#b4552d; --warn:#9a6a1c; --pill:#efe7db; --pill-fg:#4a3f36; --pill-pit:#f7e3d8; --pill-pit-fg:#8c3f1d; --head:"Lora",Georgia,serif; --body:"Lora",Georgia,serif; --ui:"Nunito Sans","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace; --fs:19px; --col:720px; --radius:10px; color-scheme: light; }
+/* Light-only by design: the page keeps its paper colour whatever the viewer's theme. */
 /* Shared reading-column base for the Medium-style variants. Tokens are set per variant. */
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: var(--fs, 19px); line-height: 1.65; -webkit-font-smoothing: antialiased; }
