@@ -2,7 +2,7 @@
   "title": "Ethan Levy's Projects",
   "owner": "Ethan Levy",
   "github": "https://github.com/ethannol",
-  "intro": "Data analysis projects on public earth-science and mining data. Each study states its aim, its pre-registered hypothesis or decision rule, and its conclusion. Every quantity shown is read from the project's results ledger at build time.",
+  "intro": "Data analysis studies on public earth-science and mining data. Each study states the question it asked, the techniques it used, the pitfalls it met in the data, and what it found.",
   "projects": [
     {
       "path": "../groundwater-audit"

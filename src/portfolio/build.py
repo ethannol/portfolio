@@ -285,6 +285,11 @@ def literal_result_numbers(card: dict[str, Any], enforce: bool = True) -> list[d
         (field, text) for field in ("not_claimed", "data", "stack") for text in card.get(field, [])
     )
     fields.extend(("finding", text) for text in card.get("finding", []))
+    summary = card.get("summary", {})
+    fields.append(("summary.question", summary.get("question", "")))
+    fields.append(("summary.result", summary.get("result", "")))
+    fields.extend(("summary.techniques", t) for t in summary.get("techniques", []))
+    fields.extend(("summary.pitfalls", t) for t in summary.get("pitfalls", []))
     fields.extend(("headline.label", item["label"]) for item in card.get("headline", []))
     fields.extend(("headline.note", item.get("note", "")) for item in card.get("headline", []))
     fields.extend(("traps.how", item["how"]) for item in card.get("traps", []))
@@ -465,6 +470,14 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
         "hypothesis": prose("hypothesis"),
         "scope": prose("scope"),
         "conclusion": prose("conclusion"),
+        "summary": {
+            "question": substitute(card.get("summary", {}).get("question", ""), ledger, used),
+            "techniques": [
+                substitute(t, ledger, used) for t in card.get("summary", {}).get("techniques", [])
+            ],
+            "pitfalls": card.get("summary", {}).get("pitfalls") or [t["title"] for t in traps],
+            "result": substitute(card.get("summary", {}).get("result", ""), ledger, used),
+        },
         "headline": headline,
         "finding": finding,
         "traps": traps,
@@ -546,6 +559,9 @@ def _render_site(
                 **common, root="", trap_rows=trap_rows, n_numbers=n_numbers, wrapper=False
             )
         )
+    (out / "references.html").write_text(
+        env.get_template("references.html").render(**common, root="", wrapper=True)
+    )
     (out / "failure-modes.html").write_text(
         env.get_template("traps.html").render(**common, root="", trap_rows=trap_rows, wrapper=True)
     )

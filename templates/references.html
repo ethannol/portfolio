@@ -1,0 +1,18 @@
+{% set page_title = 'References' %}{% set current = 'references' %}
+{% include "_head.html" %}
+<header>
+  <div class="eyebrow">{{ manifest.owner }}</div>
+  <h1 style="margin-top:8px">References</h1>
+  <p class="lede" style="margin-top:14px">Runnable, annotated worked examples of statistical methods, written as cheat sheets for my own use and for anyone who finds them useful. They are not studies and make no empirical claim.</p>
+</header>
+<div class="list">
+{% for p in projects if p.kind == 'reference' %}
+  <article class="entry">
+    <h3><a href="projects/{{ p.slug }}.html">{{ p.title }}</a></h3>
+    <p class="q">{{ p.summary.question|safe }}</p>
+    <div class="row"><span class="k">Topics</span><span class="chips">{% for t in p.summary.techniques %}<span class="chip">{{ t|safe }}</span>{% endfor %}</span></div>
+    <div class="status"><a href="projects/{{ p.slug }}.html">Full page</a>{% if p.links.Repository %} · <a href="{{ p.links.Repository }}">Repository</a>{% endif %}</div>
+  </article>
+{% endfor %}
+</div>
+{% include "_foot.html" %}

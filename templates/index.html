@@ -7,38 +7,38 @@
 </header>
 
 <h2>Studies</h2>
-<div class="grid">
+<div class="list">
 {% for p in projects if p.kind == 'study' %}
-  <article class="card">
+  <article class="entry">
     <h3><a href="projects/{{ p.slug }}.html">{{ p.title }}</a></h3>
-    <dl class="ahc">
-      <dt>Aim</dt><dd>{{ p.aim|safe }}</dd>
-      <dt>Hypothesis</dt><dd>{{ p.hypothesis|safe }}</dd>
-      <dt>Conclusion</dt><dd>{{ p.conclusion|safe }}</dd>
-    </dl>
-    <div class="status {{ 'pending' if p.status != 'complete' else '' }}">{{ p.status }}{% if p.verification.frozen_at %} · pre-registered {{ p.verification.frozen_at[:10] }}{% endif %}{% if p.verification.tests_n %} · {{ p.verification.tests_n }} {{ p.verification.tests_label }}{% endif %}</div>
+    <p class="q">{{ p.summary.question|safe }}</p>
+    <div class="row"><span class="k">Techniques</span><span class="chips">{% for t in p.summary.techniques %}<span class="chip">{{ t|safe }}</span>{% endfor %}</span></div>
+    <div class="row"><span class="k">Pitfalls</span><span class="chips">{% for t in p.summary.pitfalls %}<span class="chip pit">{{ t }}</span>{% endfor %}</span></div>
+    <div class="row"><span class="k">Result</span><span class="r">{{ p.summary.result|safe }}</span></div>
+    <div class="status">{% if p.verification.frozen_at %}Plan frozen before analysis, {{ p.verification.frozen_at[:10] }}{% else %}{{ p.status }}{% endif %} · <a href="projects/{{ p.slug }}.html">Full page</a></div>
   </article>
 {% endfor %}
 </div>
 
-<h2>Harness and reference material</h2>
-<div class="grid">
-{% for p in projects if p.kind != 'study' %}
-  <article class="card">
+<h2>Tools</h2>
+<div class="list">
+{% for p in projects if p.kind == 'harness' %}
+  <article class="entry">
     <h3><a href="projects/{{ p.slug }}.html">{{ p.title }}</a></h3>
-    <dl class="ahc">
-      <dt>Aim</dt><dd>{{ p.aim|safe }}</dd>
-      <dt>Scope</dt><dd>{{ p.scope|safe }}</dd>
-      <dt>Status</dt><dd>{{ p.conclusion|safe }}</dd>
-    </dl>
-    <div class="status {{ 'pending' if p.status != 'complete' else '' }}">{{ p.status }}{% if p.verification.tests_n %} · {{ p.verification.tests_n }} {{ p.verification.tests_label }}{% endif %}</div>
+    <p class="q">{{ p.summary.question|safe }}</p>
+    <div class="row"><span class="k">What it does</span><span class="chips">{% for t in p.summary.techniques %}<span class="chip">{{ t|safe }}</span>{% endfor %}</span></div>
+    <div class="row"><span class="k">Status</span><span class="r">{{ p.summary.result|safe }}</span></div>
+    <div class="status">{{ p.status }} · <a href="projects/{{ p.slug }}.html">Full page</a></div>
   </article>
 {% endfor %}
 </div>
 
-<h2>Recurring methodological problems</h2>
-<p>The same problems recur across datasets. <a href="failure-modes.html">This page</a> lists each with how it arose in every project that met it.</p>
+<h2>Pitfalls</h2>
+<p>The same data problems came up in more than one study. <a href="failure-modes.html">The pitfalls page</a> describes each one and where it appeared.</p>
 <div class="chips">
-{% for t in trap_rows %}<a class="chip" href="failure-modes.html#{{ t.id }}">{{ t.title }} ({{ t.appearances|length }})</a>{% endfor %}
+{% for t in trap_rows %}<a class="chip" href="failure-modes.html#{{ t.id }}">{{ t.title }}</a>{% endfor %}
 </div>
+
+<h2>References</h2>
+<p>Two runnable statistics cheat sheets, written for my own use, are kept apart from the studies on <a href="references.html">the references page</a>.</p>
 {% include "_foot.html" %}
