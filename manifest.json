@@ -82,7 +82,7 @@
     }
   },
   "heading": "Projects",
-  "methods_intro": "Generic statistics flowcharts start from the test. Earth-science and mining data break the assumptions before the test is reached, so this chart starts from the question and the shape of the data, and every box points to a script that runs the method on real data.",
+  "methods_intro": "Many statistical tests rely on strict assumptions about the underlying data: that every value is an exact measurement, that observations are independent of one another, that there is no seasonal cycle, that the sample represents the population. Earth-science and mining datasets frequently break one or more of those assumptions. Results come back as \"less than\" a detection limit, monthly samples from one river depend on each other, sediment samples a few kilometres apart share their geology, assay percentages move together because they are parts of a whole, and drillholes sit where the grade is high. This chart therefore asks about the data first: whether values are censored, whether rows repeat in time or space, whether there is a season to remove, whether the response is a composition, whether the sampling was preferential. Only then does it ask what comparison is wanted and name a method. Every box points to a script that runs that method on real data.",
   "method_chooser": {
     "project": "../mining-stats-cheatsheet",
     "path": "FLOWCHART.md",
