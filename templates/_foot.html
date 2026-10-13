@@ -9,7 +9,7 @@
   var blocks = document.querySelectorAll("code.language-mermaid");
   if (!blocks.length) return;
   var s = document.createElement("script");
-  s.src = "https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.1/mermaid.min.js";
+  s.src = "https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js";
   s.onload = function () {
     var dark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     if (document.documentElement.dataset.theme) dark = document.documentElement.dataset.theme === "dark";
@@ -17,7 +17,7 @@
       var pre = code.parentNode, div = document.createElement("div");
       div.className = "mermaid"; div.textContent = code.textContent; pre.replaceWith(div);
     });
-    mermaid.initialize({ startOnLoad: false, theme: dark ? "dark" : "neutral", securityLevel: "strict",
+    mermaid.initialize({ startOnLoad: false, theme: "neutral", securityLevel: "strict",
       flowchart: { htmlLabels: true, useMaxWidth: true } });
     mermaid.run({ querySelector: ".mermaid" });
   };
