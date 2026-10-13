@@ -1,7 +1,6 @@
 {% set page_title = p.title %}{% set current = p.slug %}
 {% include "_head.html" %}
 <header>
-  <div class="eyebrow">{{ p.kind }} · {{ p.status }}{% if p.git_head %} · <span title="git HEAD of the local checkout at build time">{{ p.git_head }}</span>{% endif %}</div>
   <h1 style="margin-top:8px">{{ p.title }}</h1>
   <p class="question">{{ p.question|safe }}</p>
 </header>
