@@ -2,7 +2,7 @@
   "title": "Ethan Levy's Projects",
   "owner": "Ethan Levy",
   "github": "https://github.com/ethannol",
-  "intro": "Data analysis studies on public earth-science and mining data, and the worked examples behind them. The purpose is to show how to approach the kinds of analysis problems that earth-science and mining data pose: censored values, seasonality, autocorrelation in time and space, compositional closure, preferential sampling. Each study states the question it asked, the techniques it used, the pitfalls it met in the data, and what it found.",
+  "intro": "Studies of water quality, mineral prospectivity, and environmental data. Each project explains the question, shows the result, and documents the choices that affect the conclusion. Source code, data provenance, and reproducible workflows accompany the analyses.",
   "projects": [
     {
       "path": "../groundwater-audit"

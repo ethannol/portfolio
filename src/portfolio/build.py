@@ -29,9 +29,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 ROOT = Path(__file__).resolve().parents[2]
 GF = "https://fonts.googleapis.com/css2?"
 FONTS = {
-    "style.css": GF
-    + "family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@400;600"
-    "&family=JetBrains+Mono:wght@400&display=swap",
+    "style.css": "",
     "a-manuscript.css": GF
     + "family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400"
     "&family=Source+Code+Pro:wght@400;500&display=swap",
@@ -468,10 +466,13 @@ def load_project(entry: dict[str, Any], manifest: dict[str, Any]) -> dict[str, A
             if all(f["name"] != name for f in story_figures):
                 story_figures.append({"src": src, "name": name})
             alt = re.sub(r"<[^>]+>", "", caption)
+            figure_url = f'../assets/{card["slug"]}/{name}'
             return (
-                f'<figure class="figure"><img src="../assets/{card["slug"]}/{name}" '
-                f'alt="{html.escape(alt)}" loading="lazy">'
-                f"<figcaption>{caption}</figcaption></figure>"
+                f'<figure class="figure"><a href="{figure_url}" '
+                f'aria-label="View figure at full size"><img src="{figure_url}" '
+                f'alt="{html.escape(alt)}" loading="lazy"></a>'
+                f'<figcaption>{caption} <a href="{figure_url}">View full size</a>'
+                "</figcaption></figure>"
             )
 
         story_text = substitute(story_text, ledger, used)

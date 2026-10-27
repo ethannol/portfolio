@@ -1,5 +1,5 @@
-/* Warm: soft cream page, serif throughout, rounded pills, friendlier and a little larger. */
-:root { --bg:#fbf8f3; --fg:#2b2622; --muted:#75695f; --line:#e9e2d8; --panel:#f3ede4; --accent:#b4552d; --warn:#9a6a1c; --pill:#efe7db; --pill-fg:#4a3f36; --pill-pit:#f7e3d8; --pill-pit-fg:#8c3f1d; --head:"Lora",Georgia,serif; --body:"Lora",Georgia,serif; --ui:"Nunito Sans","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace; --fs:19px; --col:720px; --radius:10px; color-scheme: light; }
+/* Default: a plain reading page; colour is reserved for links and evidence. */
+:root { --bg:#fff; --fg:#24292e; --muted:#59636e; --line:#d8dee4; --panel:#f6f8fa; --accent:#245a81; --warn:#805a16; --pill:transparent; --pill-fg:#424b55; --pill-pit:transparent; --pill-pit-fg:#424b55; --head:system-ui,-apple-system,"Segoe UI",sans-serif; --body:system-ui,-apple-system,"Segoe UI",sans-serif; --ui:system-ui,-apple-system,"Segoe UI",sans-serif; --mono:ui-monospace,Menlo,monospace; --fs:17px; --col:880px; --radius:0; color-scheme:light; }
 /* Light-only by design: the page keeps its paper colour whatever the viewer's theme. */
 /* Shared reading-column base for the Medium-style variants. Tokens are set per variant. */
 * { box-sizing: border-box; }
@@ -16,7 +16,7 @@ h1 { font-size: clamp(34px, 6vw, 46px); }
 h2 { font-size: 26px; margin: 60px 0 18px; }
 h3 { font-size: 24px; margin: 28px 0 10px; }
 p { margin: 0 0 20px; }
-.lede { font-size: 21px; line-height: 1.5; color: var(--muted); margin-top: 16px; }
+.lede { font-size: 19px; line-height: 1.5; color: var(--muted); margin-top: 16px; }
 .eyebrow { font-family: var(--ui); font-size: 14px; color: var(--muted); letter-spacing: .02em; }
 .question { font-family: var(--body); font-size: 24px; line-height: 1.4; color: var(--muted); margin: 14px 0 26px; }
 .grid, .list { display: block; }
@@ -29,10 +29,11 @@ p { margin: 0 0 20px; }
 .entry .row { display: flex; flex-direction: column; gap: 6px; }
 .entry .k { font-family: var(--ui); font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
 .entry .r { font-size: 18px; line-height: 1.55; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { font-family: var(--ui); font-size: 14px; line-height: 1.3; padding: 5px 12px; border-radius: 999px; background: var(--pill); color: var(--pill-fg); text-decoration: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.chip { font-family: var(--ui); font-size: 14px; line-height: 1.3; padding: 0; border-radius: 0; background: var(--pill); color: var(--pill-fg); text-decoration: none; }
 .chip.pit { background: var(--pill-pit); color: var(--pill-pit-fg); }
-a.chip:hover { filter: brightness(.96); }
+a.chip { text-decoration: underline; text-underline-offset: 3px; }
+a.chip:hover { color: var(--accent); }
 .status { font-family: var(--ui); font-size: 14px; color: var(--muted); }
 .status.pending { color: var(--warn); }
 .status::before { content: none; }
@@ -43,7 +44,7 @@ a.chip:hover { filter: brightness(.96); }
 .num { font-family: var(--mono); font-size: .9em; font-variant-numeric: tabular-nums; border-bottom: 1px dotted var(--muted); cursor: help; }
 .figure { margin: 34px 0; }
 .figure img { width: 100%; height: auto; display: block; background: #fff; border-radius: var(--radius, 6px); }
-.figure figcaption { font-family: var(--ui); font-size: 14.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+.figure figcaption { text-align: left; font-family: var(--ui); font-size: 14.5px; color: var(--muted); margin-top: 10px; }
 .two { display: block; }
 .aside { margin: 36px 0 0; padding: 22px 24px; background: var(--panel); border-radius: var(--radius, 8px); font-size: 16.5px; }
 .aside h3 { font-family: var(--ui); font-size: 13px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; font-weight: 600; }
@@ -79,11 +80,35 @@ summary .path { font-family: var(--mono); font-size: 12px; font-weight: 400; col
 .story { margin: 10px 0 48px; }
 .story h2 { font-size: 27px; margin: 48px 0 14px; }
 .story h3 { font-size: 22px; margin: 32px 0 10px; }
-.story p { font-size: 19.5px; line-height: 1.7; }
-.story ul, .story ol { font-size: 19px; line-height: 1.65; padding-left: 24px; margin: 0 0 20px; }
+.story p { font-size: 17px; line-height: 1.7; max-width: 72ch; }
+.story ul, .story ol { font-size: 17px; line-height: 1.65; padding-left: 24px; margin: 0 0 20px; }
 .story blockquote { border-left: 3px solid var(--accent); margin: 22px 0; padding: 4px 0 4px 18px; color: var(--muted); font-style: italic; }
 .story code { font-family: var(--mono); font-size: .85em; background: var(--panel); padding: 1px 5px; border-radius: 4px; }
 .story pre { background: var(--panel); padding: 14px 16px; overflow-x: auto; border-radius: var(--radius, 8px); font-size: 14px; }
 .story pre code { background: none; padding: 0; }
 .story .figure { margin: 30px 0; }
 .story .figure figcaption { text-align: left; }
+
+/* Navigation and long-document readability. */
+.skip-link { position: absolute; left: 16px; top: -100px; padding: 10px 16px; background: var(--bg); z-index: 10; }
+.skip-link:focus { top: 12px; }
+.project-links, .section-nav { display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 15px; }
+.project-links { margin-bottom: 16px; }
+.section-nav { border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 24px; }
+.study-design .ahc { margin-top: 20px; }
+main { min-width: 0; }
+main p, .ahc dd, .entry .r { overflow-wrap: break-word; }
+summary { gap: 10px; flex-wrap: wrap; }
+summary .path { overflow-wrap: anywhere; margin-left: 0; }
+.story table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 15px; }
+.story th, .story td { text-align: left; border-bottom: 1px solid var(--line); padding: 8px 12px; vertical-align: top; }
+.figure > a { display: block; }
+@media (max-width: 520px) {
+  .wrap { padding-inline: 18px; }
+  .nav { gap: 10px 18px; margin-bottom: 30px; }
+  .nav .brand { flex-basis: 100%; }
+  .question { font-size: 21px; }
+  .aside { padding: 18px; }
+  .aside dl { grid-template-columns: 1fr; gap: 3px; }
+  .aside dd { margin-bottom: 10px; }
+}

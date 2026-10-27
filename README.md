@@ -1,6 +1,13 @@
-# portfolio
+# Portfolio
 
-A static console over the side-projects portfolio. It reads each project's `portfolio.json`
+[Read the portfolio](https://ethannol.github.io/portfolio/) · [GitHub profile](https://github.com/ethannol)
+
+A static portfolio of environmental data studies, analysis tools, and worked statistical
+examples. Study pages put the question and conclusion before the detailed investigation.
+The default design uses system fonts, a white background, and simple text links; plots
+and their captions carry the visual detail.
+
+The builder reads the side-projects portfolio. It reads each project's `portfolio.json`
 card and resolves result placeholders from that project's own ledger at build time:
 a cairn `artifacts/numbers.json`, a nested `reports/results.json`, or aggregates over
 run files. Conclusions, aims, findings, notes, limitations, data descriptions and captions
@@ -82,3 +89,9 @@ site intact. Existing output can only be replaced if it carries this builder's
 `.portfolio-output` marker. Source directories, their ancestors, other Git checkouts and
 symlink outputs are rejected. The default `site/` is allowed inside this checkout.
 An older unmarked generated site must be moved aside before the first new build.
+
+## Publishing
+
+The Pages workflow builds the site from this repository and the public studies on their
+main branches. It resolves recorded results without rerunning analyses or making model
+calls. Pushes to main and manual workflow runs deploy to GitHub Pages.

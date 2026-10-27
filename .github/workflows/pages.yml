@@ -1,0 +1,90 @@
+name: Publish portfolio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: portfolio
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ethannol/groundwater-audit
+          ref: main
+          path: groundwater-audit
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ethannol/mineral-prospectivity
+          ref: main
+          path: mineral-prospectivity
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ethannol/animas-gold-king
+          ref: main
+          path: animas-gold-king
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ethannol/produced-water-lithium
+          ref: main
+          path: produced-water-lithium
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ethannol/cairn
+          ref: main
+          path: cairn
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ethannol/stats-cheatsheet
+          ref: main
+          path: stats-cheatsheet
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ethannol/groundwater-bi
+          ref: main
+          path: groundwater-bi
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install portfolio dependencies
+        working-directory: portfolio
+        run: uv sync --locked
+      - name: Build from the studies' recorded results
+        working-directory: portfolio
+        run: uv run --locked portfolio-build --strict-numbers
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: portfolio/site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy portfolio
+        id: deployment
+        uses: actions/deploy-pages@v4
