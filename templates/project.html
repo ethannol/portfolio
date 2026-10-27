@@ -5,23 +5,40 @@
   <p class="question">{{ p.question|safe }}</p>
 </header>
 
+<div class="project-links">
+  {% for label, url in p.links.items() %}<a href="{{ url }}">{{ label }}</a>{% endfor %}
+</div>
+<nav class="section-nav" aria-label="On this page">
+  {% if p.story %}<a href="#analysis">Analysis</a>{% endif %}
+  {% if p.headline %}<a href="#estimates">Estimates</a>{% endif %}
+  {% if p.not_claimed %}<a href="#limitations">Limitations</a>{% endif %}
+  {% if p.documents %}<a href="#documents">Documents</a>{% endif %}
+</nav>
+<dl class="ahc page">
+  <dt>{{ 'Finding' if p.kind == 'study' else 'Status' }}</dt><dd>{{ p.conclusion|safe }}</dd>
+</dl>
+{% if p.aim or p.hypothesis or p.scope %}
+<details class="study-design">
+  <summary>Study design and scope</summary>
+  <dl class="ahc page">
+    {% if p.aim %}<dt>Aim</dt><dd>{{ p.aim|safe }}</dd>{% endif %}
+    {% if p.hypothesis %}<dt>Hypothesis</dt><dd>{{ p.hypothesis|safe }}</dd>{% endif %}
+    {% if p.scope %}<dt>Scope</dt><dd>{{ p.scope|safe }}</dd>{% endif %}
+  </dl>
+</details>
+{% endif %}
+
 {% if p.story %}
+<h2 id="analysis">The analysis</h2>
 <article class="story">
 {{ p.story|safe }}
 </article>
-<h2>At a glance</h2>
 {% endif %}
-<dl class="ahc page">
-  <dt>Aim</dt><dd>{{ p.aim|safe }}</dd>
-  {% if p.hypothesis %}<dt>Hypothesis</dt><dd>{{ p.hypothesis|safe }}</dd>{% endif %}
-  {% if p.scope %}<dt>Scope</dt><dd>{{ p.scope|safe }}</dd>{% endif %}
-  <dt>{{ 'Conclusion' if p.kind == 'study' else 'Status' }}</dt><dd>{{ p.conclusion|safe }}</dd>
-</dl>
 
 <div class="two">
   <div>
     {% if p.headline %}
-    <h2>Quantities</h2>
+    <h2 id="estimates">Estimates</h2>
     <div class="cairn-table-wrap">
     <table class="cairn-table">
       <tr><th>Quantity</th><th>Value</th><th>Spread</th></tr>
@@ -46,7 +63,7 @@
   </div>
   <aside class="aside">
     {% if p.not_claimed %}
-    <h3>Scope and limitations</h3>
+    <h3 id="limitations">Scope and limitations</h3>
     <ul>{% for n in p.not_claimed %}<li>{{ n|safe }}</li>{% endfor %}</ul>
     {% endif %}
     {% if p.verification %}
@@ -81,8 +98,8 @@
 <h2>Figures</h2>
 {% for f in p.figures %}
 <figure class="figure">
-  <img src="../{{ f.url }}" alt="{{ f.caption|striptags }}" loading="lazy">
-  <figcaption>{{ f.caption|safe }}</figcaption>
+  <a href="../{{ f.url }}" aria-label="View figure at full size"><img src="../{{ f.url }}" alt="{{ f.caption|striptags }}" loading="lazy"></a>
+  <figcaption>{{ f.caption|safe }} <a href="../{{ f.url }}">View full size</a></figcaption>
 </figure>
 {% endfor %}
 {% endif %}
@@ -100,7 +117,7 @@
 {% endif %}
 
 {% if p.documents %}
-<h2>Documents</h2>
+<h2 id="documents">Documents</h2>
 {% for d in p.documents %}
 <details>
   <summary>{{ d.title }}<span class="path">{{ d.path }}</span></summary>
