@@ -26,6 +26,9 @@
     {
       "path": "../groundwater-bi",
       "optional": true
+    },
+    {
+      "path": "../time-series-atlas"
     }
   ],
   "traps": {
